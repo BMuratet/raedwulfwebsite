@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectStrip from '../../components/ProjectStrip.astro';
+import { getCollection } from 'astro:content';
+
+const allWork = await getCollection('work', ({ data }) => !data.draft);
+const sortedWork = allWork.sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Work"
+  description="Case studies in CNC fabrication, custom furniture, and design-build projects."
+>
+
+  <div class="work-page-header">
+    <h1 class="work-page-title">Work</h1>
+    <p class="work-page-sub">
+      Each project starts with the constraint — what made it hard, how I solved it, what it delivered.
+      Click any project to go deeper.
+    </p>
+  </div>
+
+  <ProjectStrip projects={sortedWork} />
+
+  <div class="work-page-footer">
+    <a href="/#about" class="footer-link">About Ben →</a>
+    <a href="/contact" class="footer-cta">Discuss a project</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .work-page-header {
+    background: #FAF8F5;
+    padding: 2.5rem 2rem 1.5rem;
+    border-bottom: 1px solid #E8E4DF;
+  }
+
+  .work-page-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #1B2A4A;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.4rem;
+  }
+
+  .work-page-sub {
+    font-size: 0.85rem;
+    color: #718096;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  .work-page-footer {
+    background: #111D35;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(250,248,245,0.5);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.15s;
+  }
+  .footer-link:hover { color: rgba(250,248,245,0.85); }
+
+  .footer-cta {
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: #8B6914;
+    color: #FAF8F5;
+    padding: 0.5rem 1.1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .footer-cta:hover { background: #B8922E; color: #FAF8F5; }
+</style>

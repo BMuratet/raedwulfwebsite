@@ -1,0 +1,506 @@
+---
+import { getCollection, render } from 'astro:content';
+import '../styles/global.css';
+
+const allWork = await getCollection('work', ({ data }) => !data.draft);
+const projects = allWork.sort((a, b) => a.data.order - b.data.order);
+
+// Render all content bodies
+const rendered = await Promise.all(
+  projects.map(async (project) => {
+    const { Content } = await render(project);
+    return { project, Content };
+  })
+);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <title>Portfolio — Ben Muratet / Raedwulf Productions</title>
+  <style>
+    /* ---- Base reset for portfolio page ---- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+      background: #FAF8F5;
+      color: #1B2A4A;
+      line-height: 1.6;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    a { color: #8B6914; text-decoration: none; }
+
+    /* ---- Print page setup ---- */
+    @page {
+      size: letter;
+      margin: 0.75in 0.875in;
+    }
+
+    /* ---- Screen nav ---- */
+    .screen-nav {
+      background: #1B2A4A;
+      color: #FAF8F5;
+      padding: 0.875rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+
+    .screen-nav a {
+      color: rgba(250,248,245,0.75);
+    }
+
+    .screen-nav a:hover {
+      color: #FAF8F5;
+    }
+
+    .screen-nav .print-btn {
+      background: #8B6914;
+      color: #FAF8F5;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .screen-nav .print-btn:hover {
+      background: #B8922E;
+    }
+
+    @media print {
+      .screen-nav { display: none; }
+    }
+
+    /* ---- Cover page ---- */
+    .cover {
+      padding: 3rem 0 2.5rem;
+      border-bottom: 3px solid #1B2A4A;
+      margin-bottom: 2.5rem;
+    }
+
+    .cover-name {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #1B2A4A;
+      line-height: 1;
+    }
+
+    .cover-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #8B6914;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
+
+    .cover-bio {
+      margin-top: 1.25rem;
+      font-size: 0.95rem;
+      color: #4A5568;
+      max-width: 560px;
+      line-height: 1.65;
+    }
+
+    .cover-meta {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      font-size: 0.8rem;
+      color: #4A5568;
+    }
+
+    .cover-meta span {
+      font-weight: 600;
+      color: #1B2A4A;
+    }
+
+    /* ---- Page wrapper for screen ---- */
+    .page-content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+
+    @media print {
+      .page-content {
+        max-width: none;
+        padding: 0;
+      }
+    }
+
+    /* ---- Case study block ---- */
+    .case-study {
+      break-before: page;
+      padding-top: 2.5rem;
+      margin-top: 3.5rem;
+      border-top: 1px solid #E8E4DF;
+    }
+
+    .case-study:first-of-type {
+      break-before: avoid;
+    }
+
+    @media screen {
+      .case-study:first-of-type {
+        border-top: none;
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    /* Case study header */
+    .cs-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .cs-category {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8B6914;
+      margin-bottom: 0.4rem;
+    }
+
+    .cs-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #1B2A4A;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .cs-subtitle {
+      font-size: 0.95rem;
+      color: #718096;
+      margin-top: 0.4rem;
+    }
+
+    /* Hero image */
+    .cs-hero {
+      width: 100%;
+      aspect-ratio: 16/7;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      margin: 1.25rem 0;
+      background: #E8E4DF;
+    }
+
+    .cs-hero-placeholder {
+      width: 100%;
+      aspect-ratio: 16/7;
+      background: linear-gradient(135deg, #1B2A4A 0%, #2A3F6B 60%, #4A5568 100%);
+      border-radius: 4px;
+      margin: 1.25rem 0;
+    }
+
+    /* Brief strip */
+    .cs-brief {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      border: 1px solid #E8E4DF;
+      border-radius: 4px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      background: #fff;
+    }
+
+    @media (max-width: 600px) {
+      .cs-brief {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .brief-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #718096;
+      margin-bottom: 0.3rem;
+    }
+
+    .brief-value {
+      font-size: 0.82rem;
+      color: #1B2A4A;
+      line-height: 1.5;
+    }
+
+    /* Process images — 2 column grid */
+    .cs-process {
+      margin: 1.5rem 0;
+    }
+
+    .process-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8B6914;
+      margin-bottom: 0.75rem;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 500px) {
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .process-item img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+      background: #E8E4DF;
+    }
+
+    .process-item-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #1B2A4A;
+      margin-top: 0.35rem;
+    }
+
+    .process-item-desc {
+      font-size: 0.7rem;
+      color: #718096;
+      line-height: 1.4;
+    }
+
+    /* Prose */
+    .cs-prose {
+      font-size: 0.88rem;
+      color: #4A5568;
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .cs-prose h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1B2A4A;
+      margin: 1.25rem 0 0.5rem;
+    }
+
+    .cs-prose p {
+      margin-bottom: 0.75rem;
+    }
+
+    .cs-prose ul, .cs-prose ol {
+      padding-left: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .cs-prose li {
+      margin-bottom: 0.35rem;
+    }
+
+    .cs-prose blockquote {
+      border-left: 3px solid #8B6914;
+      padding-left: 1rem;
+      color: #718096;
+      font-style: italic;
+      margin: 1rem 0;
+    }
+
+    /* Skills */
+    .cs-skills {
+      margin-top: 1rem;
+    }
+
+    .cs-skills-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #718096;
+      margin-bottom: 0.5rem;
+    }
+
+    .cs-skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #1B2A4A;
+      background: #E8E4DF;
+      padding: 0.2rem 0.6rem;
+      border-radius: 99px;
+    }
+
+    /* Value list */
+    .cs-value {
+      margin-top: 1rem;
+      border-left: 2px solid #8B6914;
+      padding-left: 1rem;
+    }
+
+    .cs-value-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8B6914;
+      margin-bottom: 0.5rem;
+    }
+
+    .cs-value ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .cs-value li {
+      font-size: 0.8rem;
+      color: #4A5568;
+      line-height: 1.5;
+      margin-bottom: 0.3rem;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .cs-value li::before {
+      content: "›";
+      position: absolute;
+      left: 0;
+      color: #8B6914;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen-only nav bar -->
+  <nav class="screen-nav">
+    <a href="/">&larr; Raedwulf Productions</a>
+    <button class="print-btn" onclick="window.print()">Save as PDF</button>
+  </nav>
+
+  <div class="page-content">
+
+    <!-- Cover -->
+    <div class="cover">
+      <div class="cover-name">Ben Muratet</div>
+      <div class="cover-title">Prototype Technician &nbsp;·&nbsp; CNC Applications &nbsp;·&nbsp; Design-Build</div>
+      <p class="cover-bio">
+        10 years in film as a Digital Imaging Technician. 3 years running woodshop operations — woodshop manager, logistics, CNC programmer (Fusion 360). Based in Atlanta. I build things that have to work, on schedule, within constraints that don't move.
+      </p>
+      <div class="cover-meta">
+        <div><span>Location</span><br>Atlanta, GA</div>
+        <div><span>CNC</span><br>Fusion 360, Mach3/4, ShopBot</div>
+        <div><span>Design</span><br>Fusion 360, SketchUp</div>
+        <div><span>Contact</span><br><a href="mailto:ben@raedwulfproductions.com">ben@raedwulfproductions.com</a></div>
+      </div>
+    </div>
+
+    <!-- Case studies -->
+    {rendered.map(({ project, Content }, index) => (
+      <article class="case-study" id={project.id}>
+
+        <header class="cs-header">
+          <div class="cs-category">{project.data.category}</div>
+          <h1 class="cs-title">{project.data.title}</h1>
+          <p class="cs-subtitle">{project.data.subtitle}</p>
+        </header>
+
+        {project.data.heroImage ? (
+          <img
+            src={project.data.heroImage}
+            alt={project.data.title}
+            class="cs-hero"
+          />
+        ) : (
+          <div class="cs-hero-placeholder"></div>
+        )}
+
+        <div class="cs-brief">
+          <div>
+            <div class="brief-label">The Constraint</div>
+            <div class="brief-value">{project.data.constraint}</div>
+          </div>
+          <div>
+            <div class="brief-label">The Outcome</div>
+            <div class="brief-value">{project.data.outcome}</div>
+          </div>
+          <div>
+            <div class="brief-label">Role &amp; Duration</div>
+            <div class="brief-value">{project.data.role}<br />{project.data.duration}</div>
+          </div>
+        </div>
+
+        {project.data.processImages && project.data.processImages.length > 0 && (
+          <div class="cs-process">
+            <div class="process-label">Process</div>
+            <div class="process-grid">
+              {project.data.processImages.slice(0, 4).map(img => (
+                <div class="process-item">
+                  <img src={img.src} alt={img.alt} loading="lazy" />
+                  <div class="process-item-label">{img.label}</div>
+                  {img.description && (
+                    <div class="process-item-desc">{img.description}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div class="cs-prose">
+          <Content />
+        </div>
+
+        {project.data.valueCreated.length > 0 && (
+          <div class="cs-value">
+            <div class="cs-value-label">Value Created</div>
+            <ul>
+              {project.data.valueCreated.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {project.data.skillsDemonstrated.length > 0 && (
+          <div class="cs-skills">
+            <div class="cs-skills-label">Skills Demonstrated</div>
+            <div class="cs-skills-list">
+              {project.data.skillsDemonstrated.map(skill => (
+                <span class="skill-tag">{skill}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+      </article>
+    ))}
+
+  </div>
+
+</body>
+</html>

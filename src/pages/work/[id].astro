@@ -1,0 +1,646 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const work = await getCollection('work');
+  return work.map(entry => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+
+// Project number for the ghost display
+const allWork = await getCollection('work', ({ data }) => !data.draft);
+const sorted = allWork.sort((a, b) => a.data.order - b.data.order);
+const projectIndex = sorted.findIndex(p => p.id === entry.id);
+const projectNum = String(projectIndex + 1).padStart(2, '0');
+const totalProjects = sorted.length;
+const prevProject = projectIndex > 0 ? sorted[projectIndex - 1] : null;
+const nextProject = projectIndex < sorted.length - 1 ? sorted[projectIndex + 1] : null;
+---
+
+<BaseLayout title={data.title} description={data.description}>
+
+  <!-- Project navigation bar -->
+  <nav class="project-nav" aria-label="Project navigation">
+    <a href="/work" class="pnav-all">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M9 2.5L4.5 7L9 11.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      All Work
+    </a>
+
+    <span class="pnav-counter">{projectNum} / {String(totalProjects).padStart(2,'0')}</span>
+
+    <div class="pnav-arrows">
+      {prevProject ? (
+        <a href={`/work/${prevProject.id}`} class="pnav-arrow pnav-prev" title={prevProject.data.title}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M9 2.5L4.5 7L9 11.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="pnav-arrow-label">
+            <span class="pnav-arrow-hint">Prev</span>
+            <span class="pnav-arrow-title">{prevProject.data.title}</span>
+          </span>
+        </a>
+      ) : (
+        <span class="pnav-arrow pnav-disabled" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M9 2.5L4.5 7L9 11.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      )}
+
+      {nextProject ? (
+        <a href={`/work/${nextProject.id}`} class="pnav-arrow pnav-next" title={nextProject.data.title}>
+          <span class="pnav-arrow-label pnav-arrow-label-right">
+            <span class="pnav-arrow-hint">Next</span>
+            <span class="pnav-arrow-title">{nextProject.data.title}</span>
+          </span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M5 2.5L9.5 7L5 11.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      ) : (
+        <span class="pnav-arrow pnav-disabled" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M5 2.5L9.5 7L5 11.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      )}
+    </div>
+  </nav>
+
+  <!-- Main detail card -->
+  <article class="detail-page">
+
+    <!-- Ghost project number -->
+    <span class="ghost-num" aria-hidden="true">{projectNum}</span>
+
+    <!-- Header -->
+    <header class="detail-header">
+      <div class="detail-cat">{data.category}&ensp;·&ensp;{data.duration}</div>
+      <h1 class="detail-title">{data.title}</h1>
+      <p class="detail-subtitle">{data.subtitle}</p>
+    </header>
+
+    <!-- Opening pull-quote — same italic voice as the A strip card -->
+    <div class="detail-pullquote">
+      <p>"{data.constraint}"</p>
+    </div>
+
+    <!-- Hero + brief columns -->
+    <div class="detail-body">
+      <div class="detail-photo-col">
+        {data.heroImage ? (
+          <img src={data.heroImage} alt={data.title} class="detail-hero" />
+        ) : (
+          <div class="detail-hero detail-hero-placeholder"></div>
+        )}
+      </div>
+
+      <div class="detail-brief-col">
+        <div class="brief-block">
+          <div class="brief-label">The Problem</div>
+          <div class="brief-val">{data.constraint}</div>
+        </div>
+
+        <div class="brief-block">
+          <div class="brief-label">The Outcome</div>
+          <div class="brief-val">{data.outcome}</div>
+        </div>
+
+        <div class="brief-block">
+          <div class="brief-label">Role</div>
+          <div class="brief-val">{data.role}</div>
+        </div>
+
+        {data.projectValue && (
+          <div class="brief-block">
+            <div class="brief-label">Project Value</div>
+            <div class="brief-val">{data.projectValue}</div>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Process strip -->
+    {data.processImages && data.processImages.length > 0 && (
+      <div class="detail-process">
+        <div class="process-section-label">Process</div>
+        <div class="process-grid">
+          {data.processImages.slice(0, 4).map((img) => (
+            <div class="process-cell">
+              <img src={img.src} alt={img.alt} loading="lazy" class="process-img" />
+              <div class="process-cell-label">{img.label}</div>
+              {img.description && (
+                <div class="process-cell-desc">{img.description}</div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Narrative prose -->
+    <div class="detail-narrative">
+      <div class="prose prose-lg prose-slate">
+        <Content />
+      </div>
+
+      {data.valueCreated.length > 0 && (
+        <div class="value-list">
+          <div class="value-label">Value Created</div>
+          <ul>
+            {data.valueCreated.map(item => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+
+    <!-- Footer: skills + nav -->
+    <div class="detail-footer">
+      {data.skillsDemonstrated.length > 0 && (
+        <div class="skills-wrap">
+          <div class="skills-label">Skills Demonstrated</div>
+          <div class="skills-list">
+            {data.skillsDemonstrated.map(skill => (
+              <span class="skill-tag">{skill}</span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div class="footer-nav">
+        <a href="/work" class="footer-nav-back">← All Work</a>
+        <a href="/contact" class="footer-nav-cta">Discuss a Project</a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
+
+<style>
+  /* ---- Back bar ---- */
+  .back-bar {
+    background: #FAF8F5;
+    border-bottom: 1px solid #E8E4DF;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #4A5568;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover { color: #8B6914; }
+
+  .project-counter {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #718096;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- Main article wrapper ---- */
+  .detail-page {
+    background: #FAF8F5;
+    max-width: 900px;
+    margin: 2rem auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+    position: relative;
+  }
+
+  @media (max-width: 960px) {
+    .detail-page {
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+
+  /* ---- Ghost number ---- */
+  .ghost-num {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.75rem;
+    font-size: 6rem;
+    font-weight: 800;
+    color: rgba(27,42,74,0.055);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* ---- Header ---- */
+  .detail-header {
+    padding: 2rem 2rem 0;
+    position: relative;
+  }
+
+  .detail-cat {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8B6914;
+    margin-bottom: 0.5rem;
+  }
+
+  .detail-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #1B2A4A;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    max-width: 540px;
+    margin: 0 0 0.35rem;
+  }
+
+  .detail-subtitle {
+    font-size: 0.9rem;
+    color: #718096;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  @media (min-width: 640px) {
+    .detail-title { font-size: 2.1rem; }
+  }
+
+  /* ---- Pull-quote ---- */
+  .detail-pullquote {
+    margin: 1.25rem 2rem 0;
+    padding: 0.9rem 1.25rem;
+    border-left: 3px solid #8B6914;
+    background: rgba(139,105,20,0.05);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .detail-pullquote p {
+    font-size: 0.88rem;
+    color: #4A5568;
+    font-style: italic;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ---- Hero + brief two-column ---- */
+  .detail-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 1.5rem 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .detail-body {
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+  }
+
+  .detail-photo-col {}
+
+  .detail-hero {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+    background: #E8E4DF;
+  }
+
+  .detail-hero-placeholder {
+    background: linear-gradient(135deg, #1B2A4A 0%, #2A3F6B 60%, #4A5568 100%);
+  }
+
+  .detail-brief-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    padding-top: 1rem;
+    border-left: none;
+  }
+
+  @media (min-width: 640px) {
+    .detail-brief-col {
+      padding-top: 0;
+      border-left: 1px solid #E8E4DF;
+      padding-left: 1.5rem;
+    }
+  }
+
+  .brief-block {}
+
+  .brief-label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8B6914;
+    margin-bottom: 0.3rem;
+  }
+
+  .brief-val {
+    font-size: 0.83rem;
+    color: #4A5568;
+    line-height: 1.65;
+  }
+
+  /* ---- Process strip ---- */
+  .detail-process {
+    margin: 0 2rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid #E8E4DF;
+  }
+
+  .process-section-label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #718096;
+    margin-bottom: 0.9rem;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .process-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+  }
+
+  .process-cell {}
+
+  .process-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 5px;
+    display: block;
+    background: #E8E4DF;
+  }
+
+  .process-cell-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #718096;
+    margin-top: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .process-cell-desc {
+    font-size: 0.72rem;
+    color: #718096;
+    line-height: 1.45;
+    margin-top: 0.2rem;
+  }
+
+  /* ---- Narrative prose ---- */
+  .detail-narrative {
+    margin: 0 2rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid #E8E4DF;
+  }
+
+  /* Value list */
+  .value-list {
+    margin-top: 1.5rem;
+    padding-left: 1rem;
+    border-left: 2px solid #8B6914;
+  }
+
+  .value-label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8B6914;
+    margin-bottom: 0.5rem;
+  }
+
+  .value-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .value-list li {
+    font-size: 0.82rem;
+    color: #4A5568;
+    line-height: 1.55;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .value-list li::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    color: #8B6914;
+  }
+
+  /* ---- Footer ---- */
+  .detail-footer {
+    margin: 0 2rem;
+    padding: 1.25rem 0 2rem;
+    border-top: 1px solid #E8E4DF;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .skills-wrap {}
+
+  .skills-label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #718096;
+    margin-bottom: 0.5rem;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .skill-tag {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #1B2A4A;
+    background: #E8E4DF;
+    padding: 0.22rem 0.7rem;
+    border-radius: 99px;
+  }
+
+  .footer-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .footer-nav-back {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #718096;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer-nav-back:hover { color: #8B6914; }
+
+  .footer-nav-cta {
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: #8B6914;
+    color: #FAF8F5;
+    padding: 0.45rem 1.1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .footer-nav-cta:hover { background: #B8922E; color: #FAF8F5; }
+
+  /* ---- Project nav bar ---- */
+  .project-nav {
+    background: #FAF8F5;
+    border-bottom: 1px solid #E8E4DF;
+    padding: 0.65rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+
+  .pnav-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #4A5568;
+    text-decoration: none;
+    transition: color 0.15s;
+    white-space: nowrap;
+  }
+  .pnav-all:hover { color: #8B6914; }
+
+  .pnav-counter {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #CBD5E0;
+    font-variant-numeric: tabular-nums;
+    flex: 1;
+    text-align: center;
+  }
+
+  .pnav-arrows {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .pnav-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #4A5568;
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+
+  .pnav-arrow:hover {
+    background: #E8E4DF;
+    color: #1B2A4A;
+  }
+
+  .pnav-disabled {
+    color: #CBD5E0;
+    padding: 0.3rem 0.6rem;
+    cursor: default;
+  }
+
+  .pnav-arrow-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    max-width: 140px;
+  }
+
+  .pnav-arrow-label-right {
+    align-items: flex-start;
+  }
+
+  .pnav-arrow-hint {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8B6914;
+    line-height: 1;
+  }
+
+  .pnav-arrow-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #1B2A4A;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 140px;
+  }
+
+  /* Hide title labels on small screens */
+  @media (max-width: 500px) {
+    .pnav-arrow-label { display: none; }
+    .pnav-counter { display: none; }
+  }
+</style>

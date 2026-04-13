@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const systems = [
+  {
+    title: 'Project Estimating Tool',
+    description: 'Spreadsheet-based estimating system that accounts for materials, labor, overhead, and margin. Eliminates guesswork on quotes and protects profitability from day one.',
+    signals: ['Accurate quotes in under 30 minutes', 'Built-in margin protection', 'Material cost tracking'],
+  },
+  {
+    title: 'Production Workflow Templates',
+    description: 'Step-by-step workflow templates for common project types. Each template captures sequencing, tool setups, and quality checkpoints — reducing errors and training time.',
+    signals: ['Repeatable process for every project type', 'Faster onboarding for shop helpers', 'Built-in quality gates'],
+  },
+  {
+    title: 'CNC Job Setup & Toolpath Library',
+    description: 'Standardized Fusion 360 templates and proven toolpath strategies for common materials and operations. Cuts programming time and eliminates trial-and-error on the machine.',
+    signals: ['Proven feeds and speeds library', 'Reusable CAM templates', 'Reduced setup time per job'],
+  },
+  {
+    title: 'Cost & Schedule Dashboard',
+    description: 'Real-time tracking of project costs against estimates. Catches budget overruns early and gives clients confidence that their project is on track.',
+    signals: ['Live budget vs. actual tracking', 'Early warning on overruns', 'Client-facing progress reports'],
+  },
+];
+---
+
+<BaseLayout title="Systems" description="The tools and processes behind Raedwulf Productions — estimating, workflow design, and production optimization.">
+  <section class="py-16 md:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="mb-4">Systems</h1>
+      <p class="text-xl text-slate leading-relaxed mb-12 max-w-3xl">
+        I don't just build things — I build the systems that let operations scale. Estimating tools, workflow templates, cost dashboards. These are the invisible infrastructure that separates a busy shop from a profitable one.
+      </p>
+
+      <div class="space-y-8">
+        {systems.map(system => (
+          <div class="bg-white border border-warm-gray rounded-lg p-8">
+            <h3 class="text-xl font-bold mb-3">{system.title}</h3>
+            <p class="text-slate leading-relaxed mb-4">{system.description}</p>
+
+            <div class="aspect-video bg-slate/5 rounded border border-warm-gray mb-4 flex items-center justify-center text-slate-light">
+              <span class="text-sm uppercase tracking-wider">Screenshot / Mockup</span>
+            </div>
+
+            <ul class="space-y-2">
+              {system.signals.map(signal => (
+                <li class="flex items-center gap-3 text-sm text-slate">
+                  <span class="text-brown font-bold">&#10003;</span>
+                  {signal}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-16 bg-navy text-warm-white rounded-lg p-8 text-center">
+        <h2 class="text-warm-white text-2xl font-bold mb-4">Why Systems Matter</h2>
+        <p class="text-warm-gray text-lg leading-relaxed max-w-2xl mx-auto mb-6">
+          Most shops run on tribal knowledge and gut feel. That works until you want to grow, hire, or take on bigger projects. I build the operational infrastructure that makes scaling possible — without sacrificing quality or burning out.
+        </p>
+        <a href="/contact" class="inline-block bg-brown hover:bg-brown-light text-warm-white font-semibold px-8 py-3 rounded transition-colors duration-200 no-underline">
+          Discuss Production Consulting
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

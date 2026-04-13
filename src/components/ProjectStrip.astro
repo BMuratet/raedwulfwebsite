@@ -1,0 +1,312 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  projects: CollectionEntry<'work'>[];
+}
+
+const { projects } = Astro.props;
+---
+
+<section class="cs-section" aria-label="Project portfolio">
+
+  <!-- Prev / Next buttons -->
+  <button class="cs-btn cs-prev" id="cs-prev" aria-label="Previous project" disabled>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <button class="cs-btn cs-next" id="cs-next" aria-label="Next project">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- Scrollable track -->
+  <div class="cs-track" id="cs-track" role="list">
+    {projects.map((project) => (
+      <a
+        href={`/work/${project.id}`}
+        class="cs-card"
+        role="listitem"
+        aria-label={project.data.title}
+      >
+        <!-- Photo -->
+        <div class="cs-photo-wrap">
+          {project.data.heroImage ? (
+            <img
+              src={project.data.heroImage}
+              alt={project.data.title}
+              class="cs-photo"
+              loading="lazy"
+              style={project.data.thumbnailPosition ? `object-position: ${project.data.thumbnailPosition}` : undefined}
+            />
+          ) : (
+            <div class="cs-photo cs-placeholder" aria-hidden="true"></div>
+          )}
+        </div>
+
+        <!-- Text body -->
+        <div class="cs-body">
+          <span class="cs-cat">{project.data.category}</span>
+          <h3 class="cs-title">{project.data.title}</h3>
+          <p class="cs-constraint">"{project.data.constraint}"</p>
+          <span class="cs-link">View case study</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- Progress dots -->
+  <div class="cs-dots" id="cs-dots" aria-hidden="true">
+    {projects.map((_, i) => (
+      <span class={`cs-dot${i === 0 ? ' active' : ''}`} data-index={i}></span>
+    ))}
+  </div>
+
+</section>
+
+<style>
+  /* ---- Section wrapper ---- */
+  .cs-section {
+    position: relative;
+    background: #111D35;
+    padding: 3rem 0 2rem;
+    overflow: hidden;
+  }
+
+  /* ---- Scrollable track ---- */
+  .cs-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding: 0.25rem 2.5rem 1rem;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+  .cs-track::-webkit-scrollbar { display: none; }
+
+  /* ---- Card ---- */
+  .cs-card {
+    flex: 0 0 260px;
+    scroll-snap-align: start;
+    background: #FAF8F5;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cs-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+
+  @media (min-width: 640px) {
+    .cs-card { flex: 0 0 300px; }
+  }
+
+  @media (min-width: 1024px) {
+    .cs-card { flex: 0 0 320px; }
+    .cs-track { padding: 0.25rem 4rem 1rem; }
+  }
+
+  /* ---- Photo ---- */
+  .cs-photo-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #2A3F6B;
+    flex-shrink: 0;
+  }
+
+  .cs-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .cs-card:hover .cs-photo {
+    transform: scale(1.03);
+  }
+
+  .cs-placeholder {
+    background: linear-gradient(135deg, #1B2A4A 0%, #2A3F6B 60%, #4A5568 100%);
+  }
+
+  /* ---- Text body ---- */
+  .cs-body {
+    padding: 1.1rem 1.2rem 1.3rem;
+    border-top: 2px solid #E8E4DF;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .cs-cat {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8B6914;
+    margin-bottom: 0.4rem;
+  }
+
+  .cs-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1B2A4A;
+    line-height: 1.25;
+    margin: 0 0 0.55rem;
+  }
+
+  .cs-constraint {
+    font-size: 0.78rem;
+    color: #4A5568;
+    line-height: 1.6;
+    font-style: italic;
+    flex: 1;
+    margin-bottom: 0.85rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .cs-link {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #8B6914;
+    letter-spacing: 0.03em;
+  }
+  .cs-link::after { content: " →"; }
+
+  /* ---- Nav buttons ---- */
+  .cs-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%); /* offset slightly up so it sits in the image zone */
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(250, 248, 245, 0.92);
+    color: #1B2A4A;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    transition: background 0.15s, opacity 0.15s, transform 0.15s;
+  }
+
+  .cs-btn:hover {
+    background: #fff;
+    transform: translateY(-60%) scale(1.08);
+  }
+
+  .cs-btn:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+
+  .cs-btn:disabled:hover {
+    background: rgba(250, 248, 245, 0.92);
+    transform: translateY(-60%);
+  }
+
+  .cs-prev { left: 0.75rem; }
+  .cs-next { right: 0.75rem; }
+
+  @media (min-width: 1024px) {
+    .cs-prev { left: 1.25rem; }
+    .cs-next { right: 1.25rem; }
+    .cs-btn { width: 44px; height: 44px; }
+  }
+
+  /* Hide arrow buttons on mobile — swipe is natural there */
+  @media (max-width: 479px) {
+    .cs-btn { display: none; }
+    .cs-track { padding: 0.25rem 1.25rem 1rem; }
+  }
+
+  /* ---- Progress dots ---- */
+  .cs-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 0 0.25rem;
+  }
+
+  .cs-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(250, 248, 245, 0.25);
+    transition: background 0.2s, width 0.2s;
+  }
+
+  .cs-dot.active {
+    background: #B8922E;
+    width: 18px;
+    border-radius: 3px;
+  }
+</style>
+
+<script>
+  const track    = document.getElementById('cs-track') as HTMLElement | null;
+  const prevBtn  = document.getElementById('cs-prev') as HTMLButtonElement | null;
+  const nextBtn  = document.getElementById('cs-next') as HTMLButtonElement | null;
+  const dotsEl   = document.getElementById('cs-dots');
+
+  if (!track || !prevBtn || !nextBtn) throw new Error('Carousel elements missing');
+
+  const GAP = 16;
+
+  function getCardWidth(): number {
+    const first = track.querySelector('.cs-card') as HTMLElement | null;
+    return first ? first.offsetWidth + GAP : 320 + GAP;
+  }
+
+  function updateButtons() {
+    const atStart = track.scrollLeft <= 4;
+    const atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    prevBtn!.disabled = atStart;
+    nextBtn!.disabled = atEnd;
+  }
+
+  function updateDots() {
+    if (!dotsEl) return;
+    const cardWidth = getCardWidth();
+    const index = Math.round(track.scrollLeft / cardWidth);
+    dotsEl.querySelectorAll('.cs-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  prevBtn.addEventListener('click', () => {
+    track.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    track.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
+  });
+
+  track.addEventListener('scroll', () => {
+    updateButtons();
+    updateDots();
+  }, { passive: true });
+
+  // Init
+  updateButtons();
+  updateDots();
+</script>

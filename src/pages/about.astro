@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About" description="The professional arc behind Raedwulf Productions — from film production to custom fabrication and systems thinking.">
+  <section class="py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="mb-8">About</h1>
+
+      <!-- Portrait placeholder -->
+      <div class="aspect-[4/3] md:aspect-[16/9] bg-slate/10 rounded-lg mb-10 flex items-center justify-center text-slate-light">
+        <span class="text-sm uppercase tracking-wider">Environmental Portrait</span>
+      </div>
+
+      <div class="space-y-6 text-lg text-slate leading-relaxed">
+        <p>
+          I started in film production — managing crews, logistics, and tight budgets on sets where a missed deadline meant real money lost. That's where I learned to think in systems: if the workflow is right, the output takes care of itself.
+        </p>
+
+        <p>
+          When I moved into woodworking and custom fabrication, I brought that same production mindset. Instead of just building furniture, I built the processes around the furniture — estimating tools, material calculators, workflow templates that turned chaotic shops into predictable operations.
+        </p>
+
+        <p>
+          Today I run Raedwulf Productions, where I combine hands-on fabrication with production management and CNC workflow design. I take on custom furniture builds, production consulting, and partnership opportunities where my operational skills create measurable value.
+        </p>
+
+        <p>
+          I'm not looking for more projects to fill hours. I'm looking for the right projects — ones where systems thinking, technical skill, and production experience converge to solve real problems.
+        </p>
+      </div>
+
+      <!-- Values -->
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold mb-6">How I Work</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {[
+            { title: 'Craftsmanship', text: 'Quality output is non-negotiable. But craftsmanship without efficiency is a hobby, not a business.' },
+            { title: 'Efficiency', text: 'Every project gets a system. Estimating, scheduling, material optimization — before the first cut.' },
+            { title: 'Autonomy', text: 'I work best with ownership. Give me the constraint and the deadline. I\'ll figure out the how.' },
+            { title: 'Community', text: 'The trades need better systems, not just better tools. I share what I build.' },
+          ].map(value => (
+            <div class="border border-warm-gray rounded-lg p-6">
+              <h3 class="text-lg font-bold mb-2">{value.title}</h3>
+              <p class="text-slate text-sm leading-relaxed">{value.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-16 text-center">
+        <a href="/contact" class="inline-block bg-navy hover:bg-navy-light text-warm-white font-semibold px-8 py-3 rounded transition-colors duration-200 no-underline">
+          Get in Touch
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

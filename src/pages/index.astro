@@ -1,0 +1,426 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectStrip from '../components/ProjectStrip.astro';
+import { getCollection } from 'astro:content';
+
+const allWork = await getCollection('work', ({ data }) => !data.draft);
+const sortedWork = allWork.sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Home">
+
+  <!-- ========================
+       HERO
+       ======================== -->
+  <section class="hero">
+    <img
+      src="/images/site/hero.jpg"
+      alt="Custom fluted console — Raedwulf Productions"
+      class="hero-bg"
+    />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Ben Muratet &nbsp;·&nbsp; Atlanta, GA</p>
+      <h1 class="hero-headline">Design.<br/>Build.<br/>Solve.</h1>
+      <p class="hero-sub">
+        CNC fabrication, custom furniture, and design-build projects — <br class="hidden sm:inline"/>
+        from Fusion 360 to finished piece.
+      </p>
+      <div class="hero-actions">
+        <a href="#work" class="btn-primary">View Work</a>
+        <a href="/contact" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <a href="#work" class="hero-scroll-hint" aria-label="Scroll to work">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- ========================
+       WORK CAROUSEL
+       ======================== -->
+  <section id="work">
+    <div class="section-intro">
+      <h2 class="section-heading">Work</h2>
+      <p class="section-sub">Each project starts with the constraint — what made it hard, how I solved it.</p>
+      <a href="/work" class="section-link">See all projects →</a>
+    </div>
+    <ProjectStrip projects={sortedWork} />
+  </section>
+
+  <!-- ========================
+       THREE WORDS
+       ======================== -->
+  <section class="three-words">
+    <div class="words-grid">
+
+      <div class="word-card">
+        <div class="word-number">01</div>
+        <h3 class="word-title">Design</h3>
+        <p class="word-body">
+          Every project gets modeled before anything gets cut. Fusion 360,
+          SketchUp, and CNC toolpath programming — resolving the geometry,
+          tolerances, and material constraints before touching a machine.
+        </p>
+      </div>
+
+      <div class="word-card">
+        <div class="word-number">02</div>
+        <h3 class="word-title">Build</h3>
+        <p class="word-body">
+          Custom furniture, client commissions, one-off prototypes and small
+          production runs. If it needs to exist and doesn't yet, I'll figure
+          out how to make it.
+        </p>
+      </div>
+
+      <div class="word-card">
+        <div class="word-number">03</div>
+        <h3 class="word-title">Solve</h3>
+        <p class="word-body">
+          Constraints first — budget, timeline, machine limits, site conditions.
+          Working toward full residential design-build with my wife:
+          she designs the space, I build it.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================
+       ABOUT
+       ======================== -->
+  <section class="about-section" id="about">
+    <div class="about-inner">
+      <div class="about-text">
+        <p class="about-eyebrow">About</p>
+        <h2 class="about-heading">Ten years in film. Three in a woodshop. Now both.</h2>
+        <p class="about-body">
+          I spent a decade as a Digital Imaging Technician in film — managing
+          data, color pipelines, and production workflows on set. Then I moved into
+          furniture manufacturing: woodshop manager, logistics, and CNC programmer
+          in Fusion 360. The two careers have more in common than they look.
+          Both are about taking complex inputs, working within hard constraints,
+          and delivering something that has to be exactly right.
+        </p>
+        <p class="about-body">
+          My wife does interior design, furniture design, and professional
+          organizing. We're building toward a design-build studio together —
+          she designs the space, I build the custom pieces in it.
+        </p>
+        <p class="about-note">
+          I use AI tools for design visualization and fabrication planning.
+          It shortens the iteration loop significantly.
+        </p>
+        <a href="/contact" class="btn-primary" style="margin-top: 1.5rem; display: inline-block;">Let's talk about a project</a>
+      </div>
+      <div class="about-image-col">
+        <img
+          src="/images/work/blockhead-cnc/hero.jpg"
+          alt="Ben Muratet — CNC fabrication"
+          class="about-img"
+        />
+        <img
+          src="/images/work/joey-becca-nightstands/detail.jpg"
+          alt="Detail of finished woodwork"
+          class="about-img about-img-second"
+        />
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: 92vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(17, 29, 53, 0.92) 0%,
+      rgba(17, 29, 53, 0.55) 45%,
+      rgba(17, 29, 53, 0.2) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 2rem 5rem;
+    max-width: 700px;
+  }
+
+  @media (min-width: 768px) {
+    .hero-content { padding: 0 4rem 6rem; }
+  }
+
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(250,248,245,0.55);
+    margin-bottom: 1rem;
+  }
+
+  .hero-headline {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 800;
+    color: #FAF8F5;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(250,248,245,0.7);
+    line-height: 1.65;
+    max-width: 420px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: #8B6914;
+    color: #FAF8F5;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .btn-primary:hover { background: #B8922E; color: #FAF8F5; }
+
+  .btn-ghost {
+    display: inline-block;
+    border: 1.5px solid rgba(250,248,245,0.35);
+    color: rgba(250,248,245,0.85);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .btn-ghost:hover { border-color: rgba(250,248,245,0.7); color: #FAF8F5; }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 1.75rem;
+    right: 2rem;
+    z-index: 1;
+    color: rgba(250,248,245,0.35);
+    animation: bounce 2s ease-in-out infinite;
+    text-decoration: none;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+
+  /* ---- WORK SECTION INTRO ---- */
+  #work { background: #FAF8F5; }
+
+  .section-intro {
+    padding: 2.5rem 2rem 0;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    border-bottom: 1px solid #E8E4DF;
+    padding-bottom: 1.25rem;
+    margin-bottom: 0;
+  }
+
+  .section-heading {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1B2A4A;
+    letter-spacing: -0.01em;
+  }
+
+  .section-sub {
+    font-size: 0.82rem;
+    color: #718096;
+    flex: 1 1 200px;
+  }
+
+  .section-link {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #8B6914;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+  .section-link:hover { color: #B8922E; }
+
+  /* ---- THREE WORDS ---- */
+  .three-words {
+    background: #1B2A4A;
+    padding: 3.5rem 2rem;
+  }
+
+  .words-grid {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .words-grid { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+  }
+
+  .word-card {
+    position: relative;
+  }
+
+  .word-number {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: rgba(184,146,46,0.6);
+    margin-bottom: 0.6rem;
+  }
+
+  .word-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #FAF8F5;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .word-body {
+    font-size: 0.84rem;
+    color: rgba(250,248,245,0.6);
+    line-height: 1.7;
+  }
+
+  /* Divider between cards on mobile */
+  @media (max-width: 767px) {
+    .word-card + .word-card {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(250,248,245,0.1);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .word-card + .word-card {
+      padding-left: 2.5rem;
+      border-left: 1px solid rgba(250,248,245,0.1);
+    }
+  }
+
+  /* ---- ABOUT ---- */
+  .about-section {
+    background: #FAF8F5;
+    padding: 4rem 2rem;
+    border-top: 1px solid #E8E4DF;
+  }
+
+  .about-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .about-inner { grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start; }
+  }
+
+  .about-eyebrow {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #8B6914;
+    margin-bottom: 0.75rem;
+  }
+
+  .about-heading {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1B2A4A;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .about-heading { font-size: 1.8rem; }
+  }
+
+  .about-body {
+    font-size: 0.88rem;
+    color: #4A5568;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .about-note {
+    font-size: 0.8rem;
+    color: #718096;
+    font-style: italic;
+    border-left: 2px solid #E8E4DF;
+    padding-left: 0.85rem;
+    margin-top: 1.25rem;
+    line-height: 1.6;
+  }
+
+  .about-image-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .about-img {
+    width: 100%;
+    border-radius: 6px;
+    object-fit: cover;
+    display: block;
+    background: #E8E4DF;
+  }
+
+  .about-img:first-child { aspect-ratio: 4/3; }
+  .about-img-second { aspect-ratio: 16/9; }
+
+  @media (max-width: 767px) {
+    .about-image-col { display: none; }
+  }
+</style>
