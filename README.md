@@ -1,43 +1,41 @@
-# Astro Starter Kit: Minimal
+# Personal Website & Online Resume
 
-```sh
-npm create astro@latest -- --template minimal
+A professional website showcasing my experience, skills, and portfolio.
+
+## Project Structure
+
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
 /
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+├── claude.md          # AI context and project understanding
+├── plan.md            # Project roadmap and planning
+├── notes.md           # Research and reference notes
+├── README.md          # This file - project documentation
+├── .gitignore         # Git ignore rules
+└── [source files]     # To be organized based on chosen stack
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Getting Started
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+This project is currently in the planning phase. See `plan.md` for the development roadmap.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Documentation
 
-## 🧞 Commands
+- **claude.md**: Context file for AI assistance - contains project overview and preferences
+- **plan.md**: Project plan with phases, tasks, and key decisions
+- **notes.md**: Research findings, design inspiration, and technical notes
 
-All commands are run from the root of the project, from a terminal:
+## Technology Stack
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+*To be determined - see plan.md for decision points*
 
-## 👀 Want to learn more?
+## Contributing
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+This is a personal project, but feedback is welcome!
+
+## License
+
+*To be determined*
+
+---
+
+Built with ❤️ by [Your Name]
