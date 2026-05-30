@@ -19,13 +19,14 @@ tags: ["CNC", "fixture design", "workholding", "toolpath programming", "Fusion 3
 role: "CNC Programmer, Fixture Designer, Fabricator"
 duration: "6 weeks"
 constraint: "The client's sculpture — a stylized human figure — has a body approximately 6\" thick and a head roughly 12\" square. Both dimensions exceed what our CNC table can accommodate with standard workholding. Off-the-shelf solutions don't exist for this geometry."
-outcome: "Custom inset table and track-based workholding system built, leveled, and commissioned. CNC now cuts the full piece geometry in multiple setups. Artist's production time cut significantly compared to hand carving."
+outcome: "Custom inset table and track-based workholding system built, leveled, and commissioned. CNC now cuts the full piece geometry in multiple setups. Blockhead is actively continuing the collaboration and designing new work that wouldn't be feasible to produce by hand."
 valueCreated:
   - "Solved a machine-capacity problem without buying new equipment"
   - "Custom fixture design is reusable for the full production run — built once, runs indefinitely"
   - "Track system allows repeatable re-registration between setups — no re-zeroing each piece"
   - "Leveling procedure documented so any operator can reset the table after maintenance"
   - "Artist can now focus on design and finishing rather than roughing out every figure by hand"
+  - "Ongoing collaboration — Blockhead is designing new work that wouldn't be feasible without the CNC"
 skillsDemonstrated:
   - "Fixture design and workholding engineering"
   - "CNC toolpath programming"
@@ -60,9 +61,7 @@ draft: false
 publishDate: "2026-01-26"
 ---
 
-<!-- TODO: Confirm the artist's name (if they're okay being mentioned) and any outcome metrics — how many pieces have been cut, estimated time savings vs. hand carving, etc. -->
-
-The client is an Atlanta-based artist who makes wooden sculptural figures — stylized human forms that he'd been carving largely by hand. The work was good. The process was slow. He wanted to know if CNC could take over the heavy roughing work so he could focus on the finishing details that actually require a human.
+Blockhead is an Atlanta-based artist who makes wooden sculptural figures — stylized human forms that he'd been carving largely by hand. The work was good. The process was slow. He wanted to know if CNC could take over the heavy roughing work so he could focus on the finishing details that actually require a human.
 
 The answer was yes, with a problem: his pieces were bigger than our machine could handle.
 

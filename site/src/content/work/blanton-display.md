@@ -41,13 +41,13 @@ processImages:
     label: "After Finishing"
     description: "After sanding and finishing — the walnut color comes up and the faceting reads clearly. The curved back rail and the pocket geometry hold their line all the way through."
   - src: "/images/work/blanton-display/photo-1.jpg"
-    alt: "Finished Blanton's display — professional shot"
+    alt: "The complete Blanton's set in the finished walnut display — all eight bottles seated, stoppers visible above the back rail"
     label: "Finished Piece"
-    description: "<!-- TODO: Describe what this angle shows -->"
+    description: "The full set in the display — all eight bottles, all eight different stoppers. The walnut's warmth sets off the dark liquid in a way a lighter wood wouldn't. Each horse-and-jockey figure clears the back rail and is easily read on its own. The piece is built to show them off, and here it's doing exactly that."
   - src: "/images/work/blanton-display/photo-2.jpg"
-    alt: "Finished Blanton's display — detail shot"
-    label: "Detail"
-    description: "<!-- TODO: Describe what this angle shows -->"
+    alt: "Fusion 360 render of the Blanton's display showing faceted sides, bottle pockets, and front lip"
+    label: "Render"
+    description: "The Fusion 360 render — faceted sides, eight individual pockets, and the front lip that keeps each bottle level and spaced. The render confirmed that the spacing would look right and the lip geometry would hold before anything was cut."
 order: 4
 draft: false
 publishDate: "2026-03-10"

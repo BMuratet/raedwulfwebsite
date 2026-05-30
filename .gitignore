@@ -36,6 +36,9 @@ tmp/
 temp/
 *.tmp
 
+# Local dev/test scripts
+ftp-test.js
+
 # Local business assets and personal files — not for public repo
 Raedwulf/
 gitignore

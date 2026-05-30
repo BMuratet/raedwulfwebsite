@@ -3,7 +3,7 @@
 # Copy selected images to: site/public/images/work/guitar-shed-seating/
 # Suggested filenames:
 #   hero.jpg         — Muratet_231219_014.jpg (professional shot — use as hero)
-#   sketchup.jpg     — export/screenshot from GuitarShed_Benches.skp
+#   GuitarShed_Benches_sketchup.png — SketchUp render (already in place)
 #   raw-material.jpg — early shop photo (PXL_20231207 or 20231208 series)
 #   build.jpg        — mid-process photo
 #   install-1.jpg    — installation panoramic (PXL_20231219 .MP series — pick best)
@@ -11,19 +11,21 @@
 
 title: "Guitar Shed Stadium Seating"
 subtitle: "Custom bench seating for a live music venue"
-description: "A commercial seating installation for a live music venue — multiple bench runs designed around the sightline constraints of a performance space, built to hold up under daily use by a paying crowd."
+description: "A commercial seating installation for Guitar Shed, a music school in Atlanta's Kirkwood neighborhood. Two sets of nesting stadium-style benches — designed around a nesting requirement that ruled out any apron under the seat, which forced every dimension to be worked out from first principles."
 heroImage: "/images/work/guitar-shed-seating/hero.jpg"
 category: "Custom Builds"
 tags: ["commercial install", "venue seating", "production run", "SketchUp", "hardwood", "millwork"]
 role: "Designer, Fabricator, Installer"
-duration: "<!-- TODO: Fill in actual duration — when did the project start vs. Dec 2023 install? -->"
-constraint: "<!-- TODO: Fill in the actual constraints — number of seats required? Sightline requirements? Budget per unit? Material spec? Any code or ADA requirements? What made this project hard? -->"
-outcome: "<!-- TODO: Fill in outcome — number of units installed, any client feedback, still in service? -->"
+duration: "4–6 weeks"
+constraint: "Maximize seating in a limited floor plan — but the benches had to be storable. Nesting was the solution, which ruled out any apron under the seat. Without an apron, the full span had to be carried by the seat slab alone. That single constraint drove everything: material species, slab thickness, seat widths, and row heights. Too tall and adults are uncomfortable; too short and the stadium geometry doesn't work. Every dimension had to function across a wide range of ages and body sizes."
+outcome: "Two sets of nesting stadium-style benches installed at Guitar Shed in Kirkwood, Atlanta. Smallest bench seats 3, longest seats 4. Fabricated from 8/4 ash with a hard wax oil finish. Client was very happy with the fit and the design. Still in service."
 valueCreated:
-  - "<!-- TODO: Fill in value points specific to this project -->"
-  - "Designed for durability in a public-use environment — daily wear from a paying crowd"
-  - "SketchUp model allowed client to visualize seating before fabrication began"
-  - "Multi-unit production run with consistent dimensions across all benches"
+  - "Nesting design reclaims floor space when seating isn't needed — critical for a school that uses the same room multiple ways"
+  - "No-apron span solved the nesting constraint without sacrificing structural integrity or adding hidden hardware"
+  - "8/4 ash kept thick enough to carry the span cleanly — the material thickness is the structure"
+  - "Hard wax oil finish chosen for easy maintenance under high-traffic, daily use"
+  - "SketchUp model let the client see the layout in their space before fabrication began — no surprises on install day"
+  - "Stadium configuration maximizes sightlines to the performance area within a compact footprint"
 skillsDemonstrated:
   - "Commercial millwork"
   - "Multi-unit production"
@@ -31,64 +33,53 @@ skillsDemonstrated:
   - "Installation"
   - "Client coordination"
   - "Production scheduling"
+  - "Structural problem-solving"
 processImages:
-  - src: "/images/work/guitar-shed-seating/sketchup.jpg"
-    alt: "SketchUp model of the venue bench seating"
+  - src: "/images/work/guitar-shed-seating/GuitarShed_Benches_sketchup.png"
+    alt: "SketchUp model of the Guitar Shed nesting bench seating"
     label: "Design"
-    description: "SketchUp model worked out bench dimensions, sightline angles, and the relationship between bench rows before a single board was cut. Showing the client a 3D model of their space eliminates ambiguity about what they're getting."
+    description: "SketchUp model worked out bench dimensions, row heights, and nesting geometry before a single board was cut. In a venue, sightlines are zero-sum — a bench that's two inches too tall blocks the row behind it. The model let the client see exactly how the seating would lay out and confirm the heights before fabrication."
   - src: "/images/work/guitar-shed-seating/raw-material.jpg"
-    alt: "Raw material staged in the shop"
+    alt: "8/4 ash boards staged in the shop before milling"
     label: "Material"
-    description: "<!-- TODO: Add description of material selection — species, grade, why it was right for a public-use environment -->"
+    description: "8/4 ash — kept as thick as possible through the milling process. Ash was the right call for a public-use environment: hard, stable, takes a clear finish well, and holds up to the kind of daily contact a school environment puts on furniture. The thickness wasn't just aesthetic — it's what allows the seat to span without an apron underneath."
   - src: "/images/work/guitar-shed-seating/build.jpg"
-    alt: "Benches in production"
+    alt: "Bench units in production in the shop"
     label: "Production"
-    description: "<!-- TODO: Add description of the production process — any jigs, batch operations, anything worth calling out -->"
+    description: "Multi-unit production means the setup has to be right before anything gets cut — every unit has to be identical or the nesting stack won't sit flat. Batch cuts, consistent references, and a finishing sequence that could process multiple parts at once without creating a bottleneck."
   - src: "/images/work/guitar-shed-seating/install-1.jpg"
-    alt: "Installed seating in the Guitar Shed venue"
+    alt: "Installed nesting bench seating at Guitar Shed, Kirkwood Atlanta"
     label: "Installation"
-    description: "<!-- TODO: Describe the install day — how many units, any site challenges, how it came together -->"
+    description: "The benches in place at Guitar Shed. The nesting geometry worked as designed — the rows step back cleanly and the sightlines to the performance area stay open. All the complexity was handled in the shop; on-site it was delivery and placement."
   - src: "/images/work/guitar-shed-seating/install-2.jpg"
-    alt: "Detail of installed seating in the venue"
+    alt: "Detail of the installed benches showing the nesting relationship between rows"
     label: "In Place"
-    description: "<!-- TODO: Add caption -->"
+    description: "The nesting relationship between rows — each bench tucks under the one behind it when stored, reclaiming the floor for classes or events. The hard wax oil finish reads warm against the ash grain and can be spot-repaired or recoated without stripping the whole piece."
 order: 7
 draft: false
 publishDate: "2023-12-19"
 ---
 
-<!-- TODO: Fill in the full project narrative. Key things to cover:
-  - What is Guitar Shed? (venue type, location, vibe)
-  - How did you get this project? (referral? direct inquiry?)
-  - What were the specific constraints? (sightlines? capacity? budget? timeline before a scheduled event?)
-  - How did you approach the design?
-  - What happened during the build? (any challenges, solutions)
-  - What happened during installation?
-  - Client and crowd reaction?
--->
+Guitar Shed is a music school in Atlanta's Kirkwood neighborhood — instruments for kids and adults, welcoming vibe, the kind of place that's genuinely excited about what it's doing. The job came in as a referral from another shop that couldn't fit it into their schedule. The owner connected me with the Guitar Shed team, I had a quick meeting, walked the space, and we worked out what was possible.
 
-<!-- WHAT YOU TOLD ME: This was a commercial install Dec 2023. 21+ photos including panoramic shots of the install. SketchUp design files exist. This is your production-at-scale story — multi-unit, commercial environment, durability requirements. Fill in the details above and this becomes a strong case study. -->
+The brief was simple in concept: more seating, in the space they already had.
 
-Designing seating for a live music venue is a different problem than designing furniture for a home. A home piece fails quietly — maybe a drawer sticks, maybe a leg wobbles. Venue seating fails publicly, in front of a paying crowd, during a show.
+## The Constraint
 
-The brief was straightforward in concept: the venue needed more seating capacity, and it needed to fit the look and feel of the space. The execution required thinking through sightlines, durability, and installation logistics that don't come up in residential work.
+The catch was that the benches couldn't be permanent. Guitar Shed uses the same room for performances and for classes, which means the seating has to come out when it's not needed. Nesting was the obvious solution — stadium-style rows that stack when stored.
 
-## Design
+Nesting ruled out an apron. A standard bench has an apron running underneath the seat between the legs — it's where the structure lives. A nested bench can't have that, because the apron is exactly where the bench in front needs to go. Without an apron, the seat slab has to carry the full span on its own.
 
-<!-- TODO: Describe the design process — how did you arrive at the bench dimensions and layout? What reference points did you use for sightlines? Any back-and-forth with the venue owner? -->
+That one constraint drove every other decision: species, thickness, seat width, leg placement, height. Once you accept that the slab is the structure, you work backward from what the slab can do. We landed on two sets, with the smallest bench seating three people comfortably and the longest seating four.
 
-The benches were modeled in SketchUp before fabrication. In a venue, every inch of sightline matters — a bench that's 2 inches too tall blocks the view for the row behind it. The model let the client see exactly how the seating would lay out in their space and make adjustments before anything was built.
+## Material and Build
 
-## Production
+Ash, from 8/4 stock — kept as thick as possible through the milling process. Ash is hard, stable, and takes a clear finish well. The thickness wasn't aesthetic; it was structural. A thinner slab in the same span would flex under load. We needed the material to do the work the apron wasn't there to do.
 
-<!-- TODO: Describe the production run — batch cutting, any jigs or fixtures built to keep dimensions consistent across units, surface treatment choice and why -->
+Finish was hard wax oil. A film finish — lacquer, polyurethane — would look great on day one and be a problem on day three hundred. Hard wax oil penetrates rather than films, which means wear is gradual rather than catastrophic, and maintenance is simple: clean the surface and recoat. For a school with daily use, that matters.
 
-Multi-unit production means setting up a system, not just building a piece. Jigs for repeatable cuts, a finishing workflow that can process multiple parts at once, and a sequence that doesn't create a bottleneck at any single operation.
+Multi-unit production meant getting the setup right before cutting anything. Every unit had to be dimensionally identical — if any piece was off, the nesting stack wouldn't sit flat. Batch cuts, consistent reference edges, a finishing sequence that processed multiple parts without creating a bottleneck at any single step.
 
 ## Installation
 
-<!-- TODO: Describe the install day — logistics, any on-site fitting or adjustment needed, how long it took -->
-
-## The Venue
-
-<!-- TODO: One or two sentences about how it turned out — does it hold up? Any feedback from the venue? -->
+Delivery and placement. The design handled the complexity; on-site there was nothing to fit or adjust. The client was very happy with how the benches sat in the space and how the nesting worked in practice. As far as I know, they're still in service.
