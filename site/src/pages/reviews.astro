@@ -6,15 +6,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="py-16 md:py-20">
     <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <h1 class="mb-4">Leave a Review</h1>
-      <p class="text-xl text-slate leading-relaxed mb-12">
-        Worked with Raedwulf Productions? I'd appreciate hearing about your experience — it helps other clients know what to expect.
-      </p>
+      <div id="page-header">
+        <h1 class="mb-4">Leave a Review</h1>
+        <p class="text-xl text-slate leading-relaxed mb-12">
+          Worked with Raedwulf Productions? I'd appreciate hearing about your experience — it helps other clients know what to expect.
+        </p>
+      </div>
 
       <!-- Success message (hidden until submitted) -->
-      <div id="success-msg" class="hidden mb-8 p-6 bg-warm-gray border-l-4 border-brown rounded">
-        <p class="font-semibold text-navy">Review received — thank you.</p>
-        <p class="text-slate text-sm mt-1">If you gave permission to display it, I may reach out before publishing.</p>
+      <div id="success-msg" class="hidden">
+        <h1 class="mb-4">Thank You</h1>
+        <p class="text-xl text-slate leading-relaxed">Review received. I appreciate you taking the time.</p>
+        <p class="text-slate mt-2">If you gave permission to display it, I may reach out before publishing.</p>
       </div>
 
       <!-- Error message (hidden until needed) -->
@@ -175,6 +178,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       if (json.success) {
         form.classList.add('hidden');
+        document.getElementById('page-header')!.classList.add('hidden');
         successMsg.classList.remove('hidden');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
