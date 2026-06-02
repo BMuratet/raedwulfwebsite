@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Leave a Review" description="Share your experience working with Raedwulf Productions.">
+  <section class="py-16 md:py-20">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <h1 class="mb-4">Leave a Review</h1>
+      <p class="text-xl text-slate leading-relaxed mb-12">
+        Worked with Raedwulf Productions? I'd appreciate hearing about your experience — it helps other clients know what to expect.
+      </p>
+
+      <!-- Success message (hidden until submitted) -->
+      <div id="success-msg" class="hidden mb-8 p-6 bg-warm-gray border-l-4 border-brown rounded">
+        <p class="font-semibold text-navy">Review received — thank you.</p>
+        <p class="text-slate text-sm mt-1">If you gave permission to display it, I may reach out before publishing.</p>
+      </div>
+
+      <!-- Error message (hidden until needed) -->
+      <div id="error-msg" class="hidden mb-8 p-6 bg-red-50 border-l-4 border-red-400 rounded">
+        <p class="font-semibold text-navy" id="error-text">Something went wrong. Please try again.</p>
+      </div>
+
+      <form id="review-form" class="space-y-6">
+
+        <div>
+          <label for="name" class="block text-sm font-semibold text-navy mb-2">Your Name <span class="text-brown">*</span></label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full px-4 py-3 border border-warm-gray rounded bg-white text-navy focus:outline-none focus:border-brown focus:ring-1 focus:ring-brown"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-semibold text-navy mb-2">Email <span class="text-slate-light text-xs font-normal">(optional — only used if I need to follow up)</span></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="w-full px-4 py-3 border border-warm-gray rounded bg-white text-navy focus:outline-none focus:border-brown focus:ring-1 focus:ring-brown"
+          />
+        </div>
+
+        <div>
+          <label for="project" class="block text-sm font-semibold text-navy mb-2">Project or Context <span class="text-slate-light text-xs font-normal">(optional)</span></label>
+          <input
+            type="text"
+            id="project"
+            name="project"
+            placeholder="e.g. Custom dining table, production consulting, CNC workflow"
+            class="w-full px-4 py-3 border border-warm-gray rounded bg-white text-navy focus:outline-none focus:border-brown focus:ring-1 focus:ring-brown placeholder:text-slate-light"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-navy mb-3">Rating <span class="text-brown">*</span></label>
+          <div class="flex gap-2" id="star-rating">
+            {[1,2,3,4,5].map(n => (
+              <button
+                type="button"
+                data-value={n}
+                class="star-btn text-3xl text-warm-gray hover:text-brown transition-colors duration-150 leading-none"
+                aria-label={`${n} star${n > 1 ? 's' : ''}`}
+              >★</button>
+            ))}
+          </div>
+          <input type="hidden" id="rating" name="rating" value="0" />
+          <p id="rating-error" class="hidden text-red-500 text-sm mt-1">Please select a rating.</p>
+        </div>
+
+        <div>
+          <label for="review" class="block text-sm font-semibold text-navy mb-2">Your Review <span class="text-brown">*</span></label>
+          <textarea
+            id="review"
+            name="review"
+            rows="5"
+            required
+            placeholder="What was it like working together? What problem did we solve?"
+            class="w-full px-4 py-3 border border-warm-gray rounded bg-white text-navy focus:outline-none focus:border-brown focus:ring-1 focus:ring-brown resize-y placeholder:text-slate-light"
+          ></textarea>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <input
+            type="checkbox"
+            id="permission"
+            name="permission"
+            class="mt-1 h-4 w-4 rounded border-warm-gray text-brown focus:ring-brown cursor-pointer"
+          />
+          <label for="permission" class="text-sm text-slate cursor-pointer">
+            I'm happy for this review to be displayed on the Raedwulf Productions website (first name and project type only — no email address published).
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          id="submit-btn"
+          class="w-full bg-brown hover:bg-brown-light text-warm-white font-semibold px-8 py-3 rounded transition-colors duration-200 cursor-pointer"
+        >
+          Submit Review
+        </button>
+
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('review-form') as HTMLFormElement;
+  const starBtns = document.querySelectorAll<HTMLButtonElement>('.star-btn');
+  const ratingInput = document.getElementById('rating') as HTMLInputElement;
+  const ratingError = document.getElementById('rating-error')!;
+  const successMsg = document.getElementById('success-msg')!;
+  const errorMsg = document.getElementById('error-msg')!;
+  const errorText = document.getElementById('error-text')!;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+  // Star rating interaction
+  starBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = parseInt(btn.dataset.value!);
+      ratingInput.value = String(val);
+      ratingError.classList.add('hidden');
+      starBtns.forEach(b => {
+        const bVal = parseInt(b.dataset.value!);
+        b.classList.toggle('text-brown', bVal <= val);
+        b.classList.toggle('text-warm-gray', bVal > val);
+      });
+    });
+
+    btn.addEventListener('mouseenter', () => {
+      const val = parseInt(btn.dataset.value!);
+      starBtns.forEach(b => {
+        const bVal = parseInt(b.dataset.value!);
+        b.classList.toggle('text-brown-light', bVal <= val);
+      });
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      const current = parseInt(ratingInput.value);
+      starBtns.forEach(b => {
+        const bVal = parseInt(b.dataset.value!);
+        b.classList.remove('text-brown-light');
+        b.classList.toggle('text-brown', bVal <= current);
+        b.classList.toggle('text-warm-gray', bVal > current);
+      });
+    });
+  });
+
+  // Form submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (parseInt(ratingInput.value) < 1) {
+      ratingError.classList.remove('hidden');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch('/submit-review.php', {
+        method: 'POST',
+        body: data,
+      });
+
+      const json = await res.json();
+
+      if (json.success) {
+        form.classList.add('hidden');
+        successMsg.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        errorText.textContent = json.message || 'Something went wrong. Please try again.';
+        errorMsg.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Review';
+      }
+    } catch {
+      errorText.textContent = 'Could not reach the server. Please try again or email directly.';
+      errorMsg.classList.remove('hidden');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Review';
+    }
+  });
+</script>
