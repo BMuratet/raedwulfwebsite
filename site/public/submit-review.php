@@ -13,7 +13,7 @@ $email       = trim(strip_tags($_POST['email'] ?? ''));
 $project     = trim(strip_tags($_POST['project'] ?? ''));
 $rating      = intval($_POST['rating'] ?? 0);
 $review      = trim(strip_tags($_POST['review'] ?? ''));
-$permission  = isset($_POST['permission']) ? 'Yes' : 'No';
+$permission  = isset($_POST['permission']) ? 1 : 0;
 
 if (!$name || !$review || $rating < 1 || $rating > 5) {
     http_response_code(400);
@@ -27,7 +27,50 @@ if ($email && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-$stars = str_repeat('★', $rating) . str_repeat('☆', 5 - $rating);
+// Save to database
+require_once __DIR__ . '/db-config.php';
+
+try {
+    $pdo = new PDO(
+        'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4',
+        DB_USER,
+        DB_PASS,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    );
+
+    $pdo->exec("CREATE TABLE IF NOT EXISTS reviews (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255),
+        project VARCHAR(255),
+        rating TINYINT NOT NULL,
+        review TEXT NOT NULL,
+        permission TINYINT(1) DEFAULT 0,
+        status ENUM('pending','approved','rejected') DEFAULT 'pending',
+        submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )");
+
+    $stmt = $pdo->prepare(
+        "INSERT INTO reviews (name, email, project, rating, review, permission)
+         VALUES (:name, :email, :project, :rating, :review, :permission)"
+    );
+    $stmt->execute([
+        ':name'       => $name,
+        ':email'      => $email ?: null,
+        ':project'    => $project ?: null,
+        ':rating'     => $rating,
+        ':review'     => $review,
+        ':permission' => $permission,
+    ]);
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Could not save review. Please try again.']);
+    exit;
+}
+
+// Send email notification
+$stars   = str_repeat('★', $rating) . str_repeat('☆', 5 - $rating);
+$display = $permission ? 'Yes' : 'No';
 
 $body = "New review submitted on Raedwulf Productions\n";
 $body .= "================================================\n\n";
@@ -35,7 +78,7 @@ $body .= "Name:          {$name}\n";
 $body .= "Email:         " . ($email ?: '(not provided)') . "\n";
 $body .= "Project:       " . ($project ?: '(not provided)') . "\n";
 $body .= "Rating:        {$stars} ({$rating}/5)\n";
-$body .= "Show on site:  {$permission}\n\n";
+$body .= "Show on site:  {$display}\n\n";
 $body .= "Review:\n{$review}\n";
 
 $to      = 'ben@benmuratet.com';
@@ -44,11 +87,6 @@ $headers = "From: noreply@raedwulfproductions.com\r\n";
 $headers .= "Reply-To: " . ($email ?: 'noreply@raedwulfproductions.com') . "\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
-$sent = mail($to, $subject, $body, $headers);
+mail($to, $subject, $body, $headers);
 
-if ($sent) {
-    echo json_encode(['success' => true, 'message' => 'Review submitted. Thank you.']);
-} else {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Mail could not be sent. Please try again or email directly.']);
-}
+echo json_encode(['success' => true, 'message' => 'Review submitted. Thank you.']);

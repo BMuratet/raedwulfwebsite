@@ -39,6 +39,10 @@ temp/
 # Local dev/test scripts
 ftp-test.js
 
+# DB credentials — manually uploaded to Hostinger, never committed
+site/public/db-config.php
+db-config.php
+
 # Local business assets and personal files — not for public repo
 Raedwulf/
 gitignore
