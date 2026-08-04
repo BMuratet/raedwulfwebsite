@@ -40,7 +40,7 @@ processImages:
     alt: "Two table tops with plaster finish applied, staged in the shop"
     label: "After Plaster"
     description: "The table tops after plaster was applied — the finish the whole project was engineered around. The MDF substrate held flat. No cracks. The edge profile reads cleanly through the plaster coat. In the background, a third piece staged for the same treatment."
-order: 6
+order: 7
 draft: false
 publishDate: "2026-01-22"
 ---

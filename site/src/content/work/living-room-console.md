@@ -69,7 +69,7 @@ processImages:
     alt: "Left sliding door panel open, revealing interior storage bay with records and magazines"
     label: "Open"
     description: "Left panel slid open, interior bay visible. Records and magazines inside — things that need to be accessible without being on display. The door clears completely to one side; the rest of the front stays closed. This is the point of the whole design: the room stays tidy until you need something."
-order: 2
+order: 3
 draft: false
 publishDate: "2023-07-24"
 ---

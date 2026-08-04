@@ -55,7 +55,7 @@ processImages:
     alt: "Blockhead sculpture in progress in the shop"
     label: "In Progress"
     description: "An earlier pull — the figure taking shape in the shop. The geometry is there; finishing details come after the CNC work is done."
-order: 5
+order: 6
 thumbnailPosition: "center 15%"
 draft: false
 publishDate: "2026-01-26"

@@ -53,7 +53,7 @@ processImages:
     alt: "Close-up detail of the fluted drawer face"
     label: "Finished Detail"
     description: "The flutes in context. Maple shows every tool mark — there's no hiding behind grain."
-order: 1
+order: 2
 draft: false
 publishDate: "2023-01-01"
 ---

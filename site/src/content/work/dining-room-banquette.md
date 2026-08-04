@@ -57,7 +57,7 @@ processImages:
     alt: "Left cabinet section painted room green with shaker doors hung — still in progress on site"
     label: "Going Green"
     description: "One cabinet section painted and doors hung on site — the room green confirmed and the shaker doors reading exactly as intended against it. The wood top isn't on yet and the rest of the run is still in progress, but the color match is locked. It already looks like it belongs."
-order: 3
+order: 4
 draft: false
 publishDate: "2026-05-02"
 ---

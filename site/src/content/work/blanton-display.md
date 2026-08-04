@@ -48,7 +48,7 @@ processImages:
     alt: "Fusion 360 render of the Blanton's display showing faceted sides, bottle pockets, and front lip"
     label: "Render"
     description: "The Fusion 360 render — faceted sides, eight individual pockets, and the front lip that keeps each bottle level and spaced. The render confirmed that the spacing would look right and the lip geometry would hold before anything was cut."
-order: 4
+order: 5
 draft: false
 publishDate: "2026-03-10"
 ---

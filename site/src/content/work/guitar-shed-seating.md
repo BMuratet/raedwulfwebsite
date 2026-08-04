@@ -55,7 +55,7 @@ processImages:
     alt: "Detail of the installed benches showing the nesting relationship between rows"
     label: "In Place"
     description: "The nesting relationship between rows — each bench tucks under the one behind it when stored, reclaiming the floor for classes or events. The hard wax oil finish reads warm against the ash grain and can be spot-repaired or recoated without stripping the whole piece."
-order: 7
+order: 8
 draft: false
 publishDate: "2023-12-19"
 ---
