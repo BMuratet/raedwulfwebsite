@@ -1,440 +1,676 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection, render } from 'astro:content';
-
-const ORDER = [
-  'opencraft-estimating-engine',
-  'kabbalah-wave-panels',
-  'theoakhome',
-  'shop-floor-board',
-];
-
-const work = await getCollection('work', ({ id }) => ORDER.includes(id));
-work.sort((a, b) => ORDER.indexOf(a.id) - ORDER.indexOf(b.id));
-
-const cases = await Promise.all(
-  work.map(async (entry) => {
-    const { Content } = await render(entry);
-    return { entry, Content };
-  })
-);
 ---
 
-<BaseLayout
-  title="Portfolio"
-  description="Four case studies: an estimating engine running two businesses, a generative CNC system, a solo brand build, and a shop-floor ops tool."
-  noindex={true}
->
-  <section class="intro">
-    <p class="intro-eyebrow">Selected Work</p>
-    <h1 class="intro-title">"I didn't know I could make that."</h1>
-    <p class="intro-body">
-      That's the reaction I build toward — whether it's a piece of furniture, a piece of software, or a generative CNC engine that turns someone's birthdate into a physical object.
-    </p>
-    <p class="intro-body">
-      Every project here existed because somewhere between an idea and a finished thing, there was a gap nobody was closing — between a screen and a shop floor, a spreadsheet and a real number, a name and a physical object. My job was never one role. It was closing that gap: inventing something that closed it, then judging honestly what it actually proved — and what it didn't yet.
-    </p>
-  </section>
+<BaseLayout title="Selected Work" description="Selected work — Ben Muratet" noindex={true}>
+  <div style="background:#111D35;padding:0.8rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap">
+    <span style="font-size:0.62rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#B8922E">Unlisted &middot; Prepared for Dolby ATG</span>
+    <a href="mailto:ben@benmuratet.com" style="font-size:0.78rem;font-weight:600;color:#E8E4DF">ben@benmuratet.com</a>
+  </div>
 
-  {cases.map(({ entry, Content }, i) => {
-    const { data } = entry;
-    return (
-      <article class="detail-page">
-        <span class="ghost-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+  <div style="background:#FAF8F5;color:#1B2A4A;font-family:Inter,system-ui,sans-serif">
 
-        <header class="detail-header">
-          <div class="detail-cat">{data.category}&ensp;·&ensp;{data.duration}</div>
-          <h2 class="detail-title">{data.title}</h2>
-          <p class="detail-subtitle">{data.subtitle}</p>
-        </header>
 
-        <div class="detail-pullquote">
-          <p>"{data.constraint}"</p>
+
+    <section style="background:#111D35;color:#FAF8F5;padding:6rem 2rem 7rem;position:relative;overflow:hidden">
+      <div style="position:absolute;right:-14rem;top:-10rem;width:44rem;height:44rem;border-radius:50%;background:radial-gradient(circle at 40% 40%, rgba(139,105,20,0.30), rgba(17,29,53,0) 68%);pointer-events:none"></div>
+      <div style="max-width:1180px;margin:0 auto;position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,27rem),1fr));gap:3rem 4rem;align-items:start">
+        <div>
+          <p style="font-size:0.66rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#B8922E;margin:0 0 1.6rem">Ben Muratet &middot; Atlanta, GA</p>
+          <h1 style="font-size:clamp(2.15rem,4.2vw,3.6rem);font-weight:800;letter-spacing:-0.045em;line-height:1.04;margin:0 0 1.8rem;max-width:20ch;text-wrap:balance">I stand between design and engineering &mdash; and build the thing that settles the argument.</h1>
+          <p style="font-size:1.08rem;line-height:1.62;color:#C9CFDB;margin:0 0 1.3rem;max-width:48ch;text-wrap:pretty">I manage the team that engineers client designs into buildable products: CNC prototyping, custom jigs and hold-downs, and delivery and installation from a single residential room to multi-day commercial builds. Physical systems and digital ones get built the same way &mdash; and I build both.</p>
+          <p style="font-size:1.08rem;line-height:1.62;color:#C9CFDB;margin:0;max-width:48ch;text-wrap:pretty">Before that, a decade of hands-on technical production: video routing and imaging monitoring on set, LED volume and virtual-production stages, Unreal Engine real-time camera tracking feeding VR/AR pipelines, cinematography and lighting. Real-time creative and technical calls, made under deadline, in front of the people paying for them.</p>
         </div>
-
-        <div class="detail-body">
-          <div class="detail-photo-col">
-            {data.heroImage ? (
-              <img src={data.heroImage} alt={data.title} class="detail-hero" style={data.heroAspectRatio ? `aspect-ratio: ${data.heroAspectRatio}` : undefined} />
-            ) : (
-              <div class="detail-hero detail-hero-placeholder"></div>
-            )}
+        <div style="display:flex;flex-direction:column;gap:1.15rem;padding-bottom:0.4rem">
+          <div style="border-top:1px solid rgba(232,228,223,0.18);padding-top:1.15rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B9AB5;margin-bottom:0.4rem">The loop, every time</div>
+            <div style="font-size:1.35rem;font-weight:800;letter-spacing:-0.03em;color:#FAF8F5">Invent &middot; Prototype<br />Judge &middot; Repeat</div>
           </div>
-
-          <div class="detail-brief-col">
-            <div class="brief-block">
-              <div class="brief-label">The Problem</div>
-              <div class="brief-val">{data.constraint}</div>
+          <div style="border-top:1px solid rgba(232,228,223,0.18);padding-top:1.15rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B9AB5;margin-bottom:0.6rem">Physical systems</div>
+            <div style="display:flex;flex-wrap:wrap;gap:0.35rem">
+              <span style="font-size:0.72rem;font-weight:500;color:#E8E4DF;background:rgba(250,248,245,0.11);padding:0.28rem 0.7rem;border-radius:999px">CNC prototyping</span>
+              <span style="font-size:0.72rem;font-weight:500;color:#E8E4DF;background:rgba(250,248,245,0.11);padding:0.28rem 0.7rem;border-radius:999px">Jigs &amp; hold-downs</span>
+              <span style="font-size:0.72rem;font-weight:500;color:#E8E4DF;background:rgba(250,248,245,0.11);padding:0.28rem 0.7rem;border-radius:999px">Delivery &amp; installation</span>
+              <span style="font-size:0.72rem;font-weight:500;color:#E8E4DF;background:rgba(250,248,245,0.11);padding:0.28rem 0.7rem;border-radius:999px">Multi-day commercial builds</span>
             </div>
-            <div class="brief-block">
-              <div class="brief-label">The Outcome</div>
-              <div class="brief-val">{data.outcome}</div>
-            </div>
-            <div class="brief-block">
-              <div class="brief-label">Role</div>
-              <div class="brief-val">{data.role}</div>
+          </div>
+          <div style="border-top:1px solid rgba(232,228,223,0.18);padding-top:1.15rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B9AB5;margin-bottom:0.6rem">Real-time &amp; immersive</div>
+            <div style="display:flex;flex-wrap:wrap;gap:0.35rem">
+              <span style="font-size:0.72rem;font-weight:500;color:#E8E4DF;background:rgba(184,146,46,0.22);padding:0.28rem 0.7rem;border-radius:999px">LED volume stages</span>
+              <span style="font-size:0.72rem;font-weight:500;color:#E8E4DF;background:rgba(184,146,46,0.22);padding:0.28rem 0.7rem;border-radius:999px">Unreal camera tracking</span>
+              <span style="font-size:0.72rem;font-weight:500;color:#E8E4DF;background:rgba(184,146,46,0.22);padding:0.28rem 0.7rem;border-radius:999px">VR/AR pipelines</span>
+              <span style="font-size:0.72rem;font-weight:500;color:#E8E4DF;background:rgba(184,146,46,0.22);padding:0.28rem 0.7rem;border-radius:999px">Video routing</span>
+              <span style="font-size:0.72rem;font-weight:500;color:#E8E4DF;background:rgba(184,146,46,0.22);padding:0.28rem 0.7rem;border-radius:999px">Imaging monitoring</span>
+              <span style="font-size:0.72rem;font-weight:500;color:#E8E4DF;background:rgba(184,146,46,0.22);padding:0.28rem 0.7rem;border-radius:999px">Cinematography &amp; lighting</span>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        {data.processImages && data.processImages.length > 0 && (
-          <div class="detail-process">
-            <div class="process-section-label">Process</div>
-            <div class="process-grid">
-              {data.processImages.slice(0, 4).map((img) => (
-                <div class="process-cell">
-                  <img src={img.src} alt={img.alt} loading="lazy" class="process-img" />
-                  <div class="process-cell-label">{img.label}</div>
-                  {img.description && <div class="process-cell-desc">{img.description}</div>}
+    <section style="padding:3rem 2rem 2.6rem;background:#FAF8F5">
+      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:2.5rem;align-items:start">
+        <div>
+          <p style="font-size:0.62rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#8B6914;margin:0 0 0.9rem">What follows</p>
+          <p style="font-size:1.12rem;line-height:1.6;color:#1B2A4A;font-weight:500;margin:0;max-width:52ch;text-wrap:pretty">Four things I built and shipped when the tool that should have existed didn&rsquo;t. Different mediums, one method: read whether an idea works before it&rsquo;s finished, build the version that proves it, then say plainly what it proved.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.7rem;padding-top:0.3rem">
+          <div style="display:flex;gap:0.9rem;align-items:baseline"><span style="font-size:0.66rem;font-weight:800;color:#8B6914;flex:none;width:1.5rem">01</span><span style="font-size:0.88rem;color:#4A5568;line-height:1.4"><strong style="color:#1B2A4A">OpenCraft</strong> &mdash; RFQ email to defensible quote, for a shop with no SKUs</span></div>
+          <div style="display:flex;gap:0.9rem;align-items:baseline"><span style="font-size:0.66rem;font-weight:800;color:#8B6914;flex:none;width:1.5rem">02</span><span style="font-size:0.88rem;color:#4A5568;line-height:1.4"><strong style="color:#1B2A4A">Kabbalah Wave</strong> &mdash; generative CNC, taken to a physical cut</span></div>
+          <div style="display:flex;gap:0.9rem;align-items:baseline"><span style="font-size:0.66rem;font-weight:800;color:#8B6914;flex:none;width:1.5rem">03</span><span style="font-size:0.88rem;color:#4A5568;line-height:1.4"><strong style="color:#1B2A4A">theoakhome.com</strong> &mdash; a brand built from a blank page, solo</span></div>
+          <div style="display:flex;gap:0.9rem;align-items:baseline"><span style="font-size:0.66rem;font-weight:800;color:#8B6914;flex:none;width:1.5rem">04</span><span style="font-size:0.88rem;color:#4A5568;line-height:1.4"><strong style="color:#1B2A4A">Shop Floor Board</strong> &mdash; an ops tool in daily use on the floor</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding:3rem 2rem 5rem;background:#FAF8F5">
+      <div style="max-width:1180px;margin:0 auto">
+
+        <div style="display:flex;align-items:flex-start;gap:2rem;margin-bottom:2.6rem;flex-wrap:wrap">
+          <div style="font-size:5.5rem;font-weight:800;letter-spacing:-0.05em;line-height:0.8;color:rgba(27,42,74,0.11);flex:none">01</div>
+          <div style="flex:1;min-width:min(100%,26rem)">
+            <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B6914;margin-bottom:0.7rem">Estimating Software &middot; In production since Feb 2026</div>
+            <h2 style="font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:800;letter-spacing:-0.038em;line-height:1.05;margin:0 0 0.6rem;color:#1B2A4A;max-width:28ch">OpenCraft: estimating for a shop with no repeatable products</h2>
+            <p style="font-size:1rem;color:#4A5568;line-height:1.6;margin:0;max-width:60ch">An RFQ email goes in. Line items come out, get matched against comparable past jobs by keyword, and run through a category-specific math engine &mdash; tabletops, desks, cabinetry and upholstery each have their own. Built from inside the trade, for the people doing the quoting.</p>
+          </div>
+          <div style="flex:none;display:flex;flex-direction:column;gap:0.6rem;align-items:flex-start">
+            <a href="https://opencraftapp.netlify.app/dashboard" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;background:#1B2A4A;color:#FAF8F5;font-size:0.76rem;font-weight:600;padding:0.6rem 1.1rem;border-radius:999px">Live dashboard &rarr;</a>
+            <span style="font-size:0.72rem;color:#4A5568">Product Designer, Full-Stack Dev</span>
+          </div>
+        </div>
+
+        <div style="padding:1.6rem 1.8rem;background:rgba(139,105,20,0.07);border-left:4px solid #8B6914;border-radius:0 16px 16px 0;margin-bottom:2.4rem">
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B6914;margin-bottom:0.7rem">What it proves</div>
+          <p style="margin:0;font-size:1.15rem;line-height:1.5;color:#1B2A4A;font-weight:600;max-width:70ch;text-wrap:pretty">A custom shop can turn an RFQ email into a defensible, margin-checked quote without a catalog of repeatable products and without enterprise pricing &mdash; because the estimating logic was modeled on how the trade actually quotes, category by category, not on a generic contractor.</p>
+        </div>
+
+        <div style="border:1px solid #E8E4DF;border-radius:20px;background:#fff;padding:2rem;margin-bottom:1.2rem;box-shadow:0 2px 18px rgba(27,42,74,0.05)">
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#4A5568;margin-bottom:0.6rem">The gap &mdash; why nothing off the shelf fits a custom job shop</div>
+          <p style="margin:0 0 1.5rem;font-size:0.92rem;color:#4A5568;line-height:1.6;max-width:80ch;text-wrap:pretty">Every estimating and project-management tool on the market assumes you sell the same thing more than once. A small shop doing almost entirely custom work has no SKUs, no catalog, and no per-unit history to price against &mdash; and cannot justify seat pricing built for a hundred-person GC.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:1rem">
+            <div style="background:#F4F1EC;border-radius:14px;padding:1.2rem 1.3rem">
+              <div style="font-size:0.58rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8B6914;margin-bottom:0.55rem">Too clunky</div>
+              <div style="font-size:0.86rem;color:#4A5568;line-height:1.5">Enterprise estimators want a fully structured takeoff before they&rsquo;ll give a number. A shop quoting off a two-paragraph email never has that.</div>
+            </div>
+            <div style="background:#F4F1EC;border-radius:14px;padding:1.2rem 1.3rem">
+              <div style="font-size:0.58rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8B6914;margin-bottom:0.55rem">Too expensive</div>
+              <div style="font-size:0.86rem;color:#4A5568;line-height:1.5">Priced per seat for firms that quote hundreds of jobs a month. A shop quoting a few dozen can&rsquo;t make the math work.</div>
+            </div>
+            <div style="background:#F4F1EC;border-radius:14px;padding:1.2rem 1.3rem">
+              <div style="font-size:0.58rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8B6914;margin-bottom:0.55rem">Wrong assumption</div>
+              <div style="font-size:0.86rem;color:#4A5568;line-height:1.5">They model repeatable products with thin labor. Custom fabrication is the inverse: labor dominates, and no two pieces are alike.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #E8E4DF;border-radius:20px;background:#fff;padding:2.2rem 2rem;margin-bottom:1.2rem;box-shadow:0 2px 18px rgba(27,42,74,0.05)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#4A5568">RFQ email &rarr; quote &mdash; where AI helps and where math does the work</div>
+            <div style="font-size:0.72rem;color:#4A5568">AI extracts and assists. The estimate itself is deterministic math.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.7rem;align-items:stretch">
+            <div style="background:#F4F1EC;border-radius:14px;padding:1rem 1rem 1.1rem">
+              <div style="font-size:0.55rem;font-weight:700;color:#4A5568;letter-spacing:0.1em;margin-bottom:0.5rem">STEP 01</div>
+              <div style="font-size:0.9rem;font-weight:700;color:#1B2A4A;line-height:1.25;margin-bottom:0.35rem">RFQ arrives</div>
+              <div style="font-size:0.75rem;color:#4A5568;line-height:1.45">Prose email, a spec sheet, sometimes a sketch. No structure.</div>
+            </div>
+            <div style="background:#EEF2E7;border:1.5px solid #7a8a5e;border-radius:14px;padding:1rem 1rem 1.1rem;position:relative">
+              <div style="position:absolute;top:-0.6rem;right:0.8rem;background:#7a8a5e;color:#fff;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;padding:0.2rem 0.55rem;border-radius:999px">AI</div>
+              <div style="font-size:0.55rem;font-weight:700;color:#4d5a38;letter-spacing:0.1em;margin-bottom:0.5rem">STEP 02</div>
+              <div style="font-size:0.9rem;font-weight:700;color:#1B2A4A;line-height:1.25;margin-bottom:0.35rem">Extract line items</div>
+              <div style="font-size:0.75rem;color:#4A5568;line-height:1.45">Pull the discrete pieces out of the request in seconds, not an afternoon.</div>
+            </div>
+            <div style="background:#EEF2E7;border:1.5px solid #7a8a5e;border-radius:14px;padding:1rem 1rem 1.1rem;position:relative">
+              <div style="position:absolute;top:-0.6rem;right:0.8rem;background:#7a8a5e;color:#fff;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;padding:0.2rem 0.55rem;border-radius:999px">AI</div>
+              <div style="font-size:0.55rem;font-weight:700;color:#4d5a38;letter-spacing:0.1em;margin-bottom:0.5rem">STEP 03</div>
+              <div style="font-size:0.9rem;font-weight:700;color:#1B2A4A;line-height:1.25;margin-bottom:0.35rem">Keyword-match past jobs</div>
+              <div style="font-size:0.75rem;color:#4A5568;line-height:1.45">Surface the closest real jobs the shop has already built and been paid for.</div>
+            </div>
+            <div style="background:#FDF3E3;border:1.5px solid #B8922E;border-radius:14px;padding:1rem 1rem 1.1rem;position:relative">
+              <div style="position:absolute;top:-0.6rem;right:0.8rem;background:#8B6914;color:#fff;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;padding:0.2rem 0.55rem;border-radius:999px">MATH</div>
+              <div style="font-size:0.55rem;font-weight:700;color:#8B6914;letter-spacing:0.1em;margin-bottom:0.5rem">STEP 04</div>
+              <div style="font-size:0.9rem;font-weight:700;color:#1B2A4A;line-height:1.25;margin-bottom:0.35rem">Category engine</div>
+              <div style="font-size:0.75rem;color:#4A5568;line-height:1.45">One engine per category. Each carries its own drivers of cost and complexity.</div>
+            </div>
+            <div style="background:#FDF3E3;border:1.5px solid #B8922E;border-radius:14px;padding:1rem 1rem 1.1rem;position:relative">
+              <div style="position:absolute;top:-0.6rem;right:0.8rem;background:#8B6914;color:#fff;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;padding:0.2rem 0.55rem;border-radius:999px">MATH</div>
+              <div style="font-size:0.55rem;font-weight:700;color:#8B6914;letter-spacing:0.1em;margin-bottom:0.5rem">STEP 05</div>
+              <div style="font-size:0.9rem;font-weight:700;color:#1B2A4A;line-height:1.25;margin-bottom:0.35rem">Margin check</div>
+              <div style="font-size:0.75rem;color:#4A5568;line-height:1.45">Gross margin against this shop&rsquo;s real history, not industry averages.</div>
+            </div>
+            <div style="background:#1B2A4A;border-radius:14px;padding:1rem 1rem 1.1rem">
+              <div style="font-size:0.55rem;font-weight:700;color:#B8922E;letter-spacing:0.1em;margin-bottom:0.5rem">STEP 06</div>
+              <div style="font-size:0.9rem;font-weight:700;color:#FAF8F5;line-height:1.25;margin-bottom:0.35rem">Quote out</div>
+              <div style="font-size:0.75rem;color:#C9CFDB;line-height:1.45">Client-ready, itemized, auditable line by line.</div>
+            </div>
+          </div>
+
+          <div style="margin-top:1.6rem;padding-top:1.5rem;border-top:1px solid #E8E4DF">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#4A5568;margin-bottom:0.6rem">Four engines, because one was never going to work</div>
+            <p style="margin:0 0 1.1rem;font-size:0.88rem;color:#4A5568;line-height:1.6;max-width:80ch;text-wrap:pretty">The visible part is the extraction. The real work was cleaning years of messy job data into something comparable, then building a separate mathematical model for each category the shop actually sells &mdash; each with its own cost drivers, its own complexity multipliers, its own definition of &ldquo;done.&rdquo;</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+              <span style="font-size:0.8rem;font-weight:600;color:#FAF8F5;background:#1B2A4A;padding:0.4rem 1rem;border-radius:999px">Tabletops</span>
+              <span style="font-size:0.8rem;font-weight:600;color:#FAF8F5;background:#1B2A4A;padding:0.4rem 1rem;border-radius:999px">Desks</span>
+              <span style="font-size:0.8rem;font-weight:600;color:#FAF8F5;background:#1B2A4A;padding:0.4rem 1rem;border-radius:999px">Cabinetry</span>
+              <span style="font-size:0.8rem;font-weight:600;color:#FAF8F5;background:#1B2A4A;padding:0.4rem 1rem;border-radius:999px">Upholstery</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:1.2rem;margin-bottom:1.2rem">
+          <div style="border:1px solid #E8E4DF;border-radius:20px;background:#fff;padding:1.8rem 1.8rem 2rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B6914;margin-bottom:0.8rem">The judgment call &mdash; a cabinet through the table engine</div>
+            <p style="margin:0 0 1.5rem;font-size:0.88rem;color:#4A5568;line-height:1.6;text-wrap:pretty">Tabletops were the base structure, so the honest test was to push a real cabinetry job through it end to end and check the output against a competitor&rsquo;s actual quote on the same work. It failed in <strong style="color:#1B2A4A">both directions at once</strong> &mdash; which is exactly what told me the architecture had to be per-category.</p>
+            <div style="display:flex;flex-direction:column;gap:0.9rem">
+              <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.1rem 1.2rem;background:#F4F1EC;border-radius:14px;border-left:3px solid #B4483A">
+                <div style="flex:none;width:5.2rem">
+                  <div style="font-size:0.55rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B4483A;margin-bottom:0.2rem">Too low</div>
+                  <div style="font-size:1.45rem;font-weight:800;color:#1B2A4A;letter-spacing:-0.035em;line-height:1">$4,400</div>
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div class="detail-narrative">
-          <div class="prose prose-lg prose-slate">
-            <Content />
-          </div>
-
-          {data.valueCreated.length > 0 && (
-            <div class="value-list">
-              <div class="value-label">Value Created</div>
-              <ul>
-                {data.valueCreated.map((item) => <li>{item}</li>)}
-              </ul>
-            </div>
-          )}
-        </div>
-
-        <div class="detail-footer">
-          {data.skillsDemonstrated.length > 0 && (
-            <div class="skills-wrap">
-              <div class="skills-label">Skills Demonstrated</div>
-              <div class="skills-list">
-                {data.skillsDemonstrated.map((skill) => <span class="skill-tag">{skill}</span>)}
+                <div style="font-size:0.8rem;color:#4A5568;line-height:1.5">of hardware and subbed-out parts the table engine never asks about, because a tabletop doesn&rsquo;t have slides, hinges, pulls or a finish sub.</div>
+              </div>
+              <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.1rem 1.2rem;background:#F4F1EC;border-radius:14px;border-left:3px solid #8B6914">
+                <div style="flex:none;width:5.2rem">
+                  <div style="font-size:0.55rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#8B6914;margin-bottom:0.2rem">Too high</div>
+                  <div style="font-size:1.45rem;font-weight:800;color:#1B2A4A;letter-spacing:-0.035em;line-height:1">3.6&times;</div>
+                </div>
+                <div style="font-size:0.8rem;color:#4A5568;line-height:1.5">on labor &mdash; 348 predicted hours against a realistic 96, because the table model reads size as complexity and can&rsquo;t see complexity <em>within</em> a piece.</div>
               </div>
             </div>
-          )}
+            <p style="margin:1.4rem 0 0;font-size:0.85rem;color:#4A5568;line-height:1.6;text-wrap:pretty">The pricing logic held. The inputs didn&rsquo;t. The fix wasn&rsquo;t a fudge factor on top of one universal estimator &mdash; it was accepting that each category needs its own model, and naming precisely which inputs each one still owes.</p>
+          </div>
+          <div style="border:1px solid #E8E4DF;border-radius:20px;background:#fff;padding:1.8rem;display:flex;flex-direction:column;gap:1.4rem">
+            <div>
+              <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#4A5568;margin-bottom:0.9rem">Value created</div>
+              <div style="display:flex;flex-direction:column;gap:0.65rem">
+                <div style="font-size:0.84rem;color:#4A5568;line-height:1.5;padding-left:1.1rem;border-left:2px solid #E8E4DF">An RFQ email becomes a structured, itemized estimate in minutes instead of an afternoon of reading and guessing</div>
+                <div style="font-size:0.84rem;color:#4A5568;line-height:1.5;padding-left:1.1rem;border-left:2px solid #E8E4DF">Years of inconsistent job records cleaned into a comparable history the estimate can actually price against</div>
+                <div style="font-size:0.84rem;color:#4A5568;line-height:1.5;padding-left:1.1rem;border-left:2px solid #E8E4DF">Four category engines that price the way the trade prices &mdash; at a cost a small shop can carry</div>
+                <div style="font-size:0.84rem;color:#4A5568;line-height:1.5;padding-left:1.1rem;border-left:2px solid #E8E4DF">Running production quotes today, with every number traceable to an input someone in the shop can argue with</div>
+              </div>
+            </div>
+            <div style="flex:1;min-height:11rem;position:relative">
+              <img src="/images/dolby/opencraft-quote.webp" alt="OpenCraft client-facing quote PDF" style="position:absolute;inset:0;width:100%;height:100%;border-radius:14px;object-fit:cover;object-position:30% 50%" />
+            </div>
+          </div>
         </div>
-      </article>
-    );
-  })}
 
-  <section class="intro">
-    <p class="intro-eyebrow">Why This Page Exists</p>
-    <h2 class="intro-title">Invent. Prototype. Judge. Repeat.</h2>
-    <p class="intro-body">
-      Four different problems, four different mediums — the same job every time. That's the work I want to keep doing.
-    </p>
-  </section>
+        <div style="display:flex;gap:0.9rem;align-items:baseline;padding:0.9rem 0 1.4rem;border-top:1px solid #E8E4DF;margin-bottom:0.4rem">
+          <span style="font-size:0.56rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#8B6914;flex:none;padding-top:0.25rem;width:6.5rem">Still unresolved</span>
+          <span style="font-size:0.83rem;line-height:1.55;color:#4A5568;max-width:78ch">Cabinetry and upholstery are the least calibrated of the four engines, and complexity within a piece is still a coarse input rather than a measured one &mdash; both scoped and prioritized rather than quietly averaged over.</span>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:0.45rem;align-items:center">
+          <span style="font-size:0.58rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#4A5568;margin-right:0.5rem">Skills demonstrated</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E8E4DF;padding:0.3rem 0.8rem;border-radius:999px">Domain modeling from inside the trade</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E8E4DF;padding:0.3rem 0.8rem;border-radius:999px">Data cleaning &amp; normalization</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E8E4DF;padding:0.3rem 0.8rem;border-radius:999px">Mathematical cost modeling</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E8E4DF;padding:0.3rem 0.8rem;border-radius:999px">AI extraction pipelines</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E8E4DF;padding:0.3rem 0.8rem;border-radius:999px">Full-stack product design</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E8E4DF;padding:0.3rem 0.8rem;border-radius:999px">Diagnosing a system against ground truth</span>
+        </div>
+
+      </div>
+    </section>
+
+    <section style="padding:5.5rem 2rem 5rem;background:#111D35;color:#FAF8F5">
+      <div style="max-width:1180px;margin:0 auto">
+
+        <div style="display:flex;align-items:flex-start;gap:2rem;margin-bottom:2.6rem;flex-wrap:wrap">
+          <div style="font-size:5.5rem;font-weight:800;letter-spacing:-0.05em;line-height:0.8;color:rgba(250,248,245,0.13);flex:none">02</div>
+          <div style="flex:1;min-width:min(100%,26rem)">
+            <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#B8922E;margin-bottom:0.7rem">CNC &middot; Designed, built and physically test-cut, June 2026</div>
+            <h2 style="font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:800;letter-spacing:-0.038em;line-height:1.05;margin:0 0 0.6rem;max-width:26ch">Kabbalah Wave: generative CNC from a name and a birthdate</h2>
+            <p style="font-size:1rem;color:#C9CFDB;line-height:1.6;margin:0;max-width:56ch">Nothing existing takes personal identity and returns a one-of-a-kind, physically cuttable relief panel. Both the generative math and the safety net that keeps it off a machine when it isn&rsquo;t safe had to be invented.</p>
+          </div>
+          <div style="flex:none;display:flex;flex-direction:column;gap:0.6rem;align-items:flex-start">
+            <span style="display:inline-flex;align-items:center;gap:0.5rem;background:#8B6914;color:#FAF8F5;font-size:0.76rem;font-weight:600;padding:0.6rem 1.1rem;border-radius:999px">Live engine below</span>
+            <span style="font-size:0.72rem;color:#8B9AB5">Generative Systems Designer, CNC Programmer</span>
+          </div>
+        </div>
+
+        <div style="padding:1.6rem 1.8rem;background:rgba(184,146,46,0.12);border-left:4px solid #B8922E;border-radius:0 16px 16px 0;margin-bottom:1rem">
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#B8922E;margin-bottom:0.7rem">What it proves</div>
+          <p style="margin:0;font-size:1.15rem;line-height:1.5;color:#FAF8F5;font-weight:600;max-width:70ch;text-wrap:pretty">A name and a birthdate go in; CNC-ready geometry comes out, through a verification gate that has to pass before anything reaches the machine &mdash; and it went all the way to a physical cut at B10, reacted to in person on the shop floor.</p>
+        </div>
+        <p style="margin:0 0 3rem;font-size:0.9rem;line-height:1.6;color:#8B9AB5;max-width:76ch;padding-left:1.8rem;text-wrap:pretty"><strong style="color:#C9CFDB;font-weight:600">The gap:</strong> a pattern that looks good on screen isn&rsquo;t automatically safe to cut. Watertight geometry, consistent winding, a frequency the tool and material can resolve &mdash; none of it shows up in a render. Building the math was half the problem.</p>
+
+        <div style="border:1px solid rgba(250,248,245,0.14);border-radius:20px;background:rgba(250,248,245,0.04);padding:2rem;margin-bottom:1.2rem">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#B8922E">The engine, running &mdash; type a name and a date</div>
+            <div style="font-size:0.72rem;color:#8B9AB5">Same <code style="color:#B8922E;font-family:ui-monospace,monospace">wave-engine.js</code> that drives the production generator</div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:2rem;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:1.5rem">
+              <div style="display:grid;grid-template-columns:1fr;gap:0.9rem">
+                <label style="display:flex;flex-direction:column;gap:0.4rem">
+                  <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:#8B9AB5">Name</span>
+                  <input type="text" id="kw-name" value="Ada Lovelace" style="background:#0B1425;border:1px solid rgba(250,248,245,0.2);border-radius:999px;color:#FAF8F5;font-family:Inter,sans-serif;font-size:0.92rem;padding:0.6rem 1.1rem;width:100%;box-sizing:border-box" />
+                </label>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem">
+                  <label style="display:flex;flex-direction:column;gap:0.4rem">
+                    <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:#8B9AB5">Month</span>
+                    <input type="number" min="1" max="12" id="kw-month" value="12" style="background:#0B1425;border:1px solid rgba(250,248,245,0.2);border-radius:999px;color:#FAF8F5;font-family:Inter,sans-serif;font-size:0.92rem;padding:0.6rem 0.9rem;width:100%;box-sizing:border-box" />
+                  </label>
+                  <label style="display:flex;flex-direction:column;gap:0.4rem">
+                    <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:#8B9AB5">Day</span>
+                    <input type="number" min="1" max="31" id="kw-day" value="10" style="background:#0B1425;border:1px solid rgba(250,248,245,0.2);border-radius:999px;color:#FAF8F5;font-family:Inter,sans-serif;font-size:0.92rem;padding:0.6rem 0.9rem;width:100%;box-sizing:border-box" />
+                  </label>
+                  <label style="display:flex;flex-direction:column;gap:0.4rem">
+                    <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:#8B9AB5">Year</span>
+                    <input type="number" min="1900" max="2030" id="kw-year" value="1815" style="background:#0B1425;border:1px solid rgba(250,248,245,0.2);border-radius:999px;color:#FAF8F5;font-family:Inter,sans-serif;font-size:0.92rem;padding:0.6rem 0.9rem;width:100%;box-sizing:border-box" />
+                  </label>
+                </div>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:0.7rem">
+                <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:#8B9AB5">Pattern mode</span>
+                <div style="display:flex;gap:0.4rem;background:#0B1425;border:1px solid rgba(250,248,245,0.16);border-radius:999px;padding:0.3rem">
+                  <button type="button" class="kw-pat" data-pattern="flow" style="flex:1;border:0;cursor:pointer;border-radius:999px;padding:0.5rem 0.6rem;font-family:Inter,sans-serif;font-size:0.74rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;background:#1B2A4A;color:#FAF8F5">Flow</button>
+                  <button type="button" class="kw-pat" data-pattern="orbit" style="flex:1;border:0;cursor:pointer;border-radius:999px;padding:0.5rem 0.6rem;font-family:Inter,sans-serif;font-size:0.74rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;background:transparent;color:#C9CFDB">Orbit</button>
+                  <button type="button" class="kw-pat" data-pattern="sliced" style="flex:1;border:0;cursor:pointer;border-radius:999px;padding:0.5rem 0.6rem;font-family:Inter,sans-serif;font-size:0.74rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;background:transparent;color:#C9CFDB">Sliced</button>
+                </div>
+                <div style="display:flex;gap:0.4rem;background:#0B1425;border:1px solid rgba(250,248,245,0.16);border-radius:999px;padding:0.3rem;max-width:14rem">
+                  <button type="button" class="kw-sty" data-style="smooth" style="flex:1;border:0;cursor:pointer;border-radius:999px;padding:0.45rem 0.6rem;font-family:Inter,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;background:#8B6914;color:#FAF8F5">Smooth</button>
+                  <button type="button" class="kw-sty" data-style="sharp" style="flex:1;border:0;cursor:pointer;border-radius:999px;padding:0.45rem 0.6rem;font-family:Inter,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;background:transparent;color:#C9CFDB">Sharp</button>
+                </div>
+              </div>
+
+              <div style="border-top:1px solid rgba(250,248,245,0.14);padding-top:1.2rem">
+                <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:#8B9AB5;margin-bottom:0.9rem">Derivation &mdash; how the inputs become geometry</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(7.5rem,1fr));gap:0.9rem 1.2rem">
+                  <div><div style="font-size:0.58rem;color:#8B9AB5;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.2rem">Gematria</div><div style="font-size:1.15rem;font-weight:800;color:#B8922E;letter-spacing:-0.02em"><span id="kw-gematria">—</span></div></div>
+                  <div><div style="font-size:0.58rem;color:#8B9AB5;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.2rem">Life path</div><div style="font-size:1.15rem;font-weight:800;color:#B8922E;letter-spacing:-0.02em"><span id="kw-lifepath">—</span></div></div>
+                  <div><div style="font-size:0.58rem;color:#8B9AB5;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.2rem">Day letter</div><div style="font-size:1.15rem;font-weight:800;color:#B8922E;letter-spacing:-0.02em"><span id="kw-dayletter">—</span> <span style="font-size:0.7rem;font-weight:600;color:#C9CFDB"><span id="kw-daylettername">—</span></span></div></div>
+                  <div><div style="font-size:0.58rem;color:#8B9AB5;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.2rem">Sign &middot; ruler</div><div style="font-size:0.9rem;font-weight:700;color:#FAF8F5"><span id="kw-zodiac">—</span> &middot; <span id="kw-planet">—</span></div></div>
+                  <div><div style="font-size:0.58rem;color:#8B9AB5;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.2rem">Sefirah &middot; pillar</div><div style="font-size:0.9rem;font-weight:700;color:#FAF8F5"><span id="kw-sefirah">—</span> &middot; <span id="kw-pillar">—</span></div></div>
+                </div>
+                <div style="margin-top:1rem;font-size:0.78rem;color:#C9CFDB;line-height:1.5;font-style:italic">Field character: <span id="kw-character"></span></div>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:0.8rem">
+              <canvas id="kw-canvas" style="width:100%;aspect-ratio:1/1;border-radius:16px;display:block;background:#1e1206;box-shadow:0 8px 34px rgba(0,0,0,0.4)"></canvas>
+              <div style="display:flex;justify-content:space-between;gap:1rem;font-size:0.68rem;color:#8B9AB5;letter-spacing:0.06em;text-transform:uppercase"><span>Height field &middot; 24&Prime; &times; 24&Prime; panel</span><span>0.5&Prime; relief on 4/4 stock</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:1.2rem;margin-bottom:1.2rem">
+          <div style="border:1px solid rgba(250,248,245,0.14);border-radius:20px;background:rgba(250,248,245,0.04);padding:1.8rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#B8922E;margin-bottom:1.3rem">The judgment call &mdash; two defects invisible in preview</div>
+            <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.3rem">
+              <div>
+                <img src="/images/dolby/kabbalah-pattern-options.png" alt="The three pattern modes: flow, orbit, sliced" style="width:100%;aspect-ratio:1400/460;object-fit:contain;border-radius:12px;display:block;background:#1e1206" />
+                <div style="font-size:0.62rem;color:#8B9AB5;letter-spacing:0.08em;text-transform:uppercase;margin-top:0.45rem">All three modes &mdash; orbit (centre) is where the seam appeared</div>
+              </div>
+              <div style="display:flex;gap:1rem;align-items:flex-start">
+                <div style="width:9.5rem;flex:none">
+                  <img src="/images/dolby/kabbalah-preview.png" alt="Rendered 24-inch square wave field derived from one set of personal inputs" style="width:100%;aspect-ratio:1/1;object-fit:contain;border-radius:12px;display:block;background:#1e1206" />
+                  <div style="font-size:0.62rem;color:#8B9AB5;letter-spacing:0.08em;text-transform:uppercase;margin-top:0.45rem">Corrected 24&Prime; field</div>
+                </div>
+                <p style="margin:0;font-size:0.8rem;color:#8B9AB5;line-height:1.55;padding-top:0.2rem">The seam radiated from the centre of the orbit field, where <code style="color:#B8922E;font-family:ui-monospace,monospace">atan2</code> wraps. Quantizing spin to a whole number of arms makes the angular term jump a full cosine cycle across that branch cut &mdash; the wrap goes seamless without changing the pattern.</p>
+              </div>
+            </div>
+            <p style="margin:0;font-size:0.85rem;color:#C9CFDB;line-height:1.6;text-wrap:pretty">Early exports looked right and weren&rsquo;t safe to cut. Orbit had that hard seam; the 3D export had its surface normals wound backwards &mdash; invisible in a render, but the kind of defect that damages a bit or warps a part. I found the actual cause of each rather than patching the symptom.</p>
+          </div>
+
+          <div style="border:1px solid rgba(250,248,245,0.14);border-radius:20px;background:rgba(250,248,245,0.04);padding:1.8rem;display:flex;flex-direction:column;gap:1.2rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#B8922E">The verification gate &mdash; mandatory, permanent</div>
+            <p style="margin:0;font-size:0.85rem;color:#C9CFDB;line-height:1.55">That near-miss is why nothing reaches the machine unchecked. Every exported STL passes three assertions or it does not ship.</p>
+            <div style="display:flex;flex-direction:column;gap:0.6rem">
+              <div style="display:flex;align-items:center;gap:0.9rem;background:#0B1425;border-radius:12px;padding:0.85rem 1.1rem"><span style="width:1.4rem;height:1.4rem;border-radius:50%;background:#7a8a5e;color:#0B1425;display:grid;place-items:center;font-size:0.8rem;font-weight:800;flex:none">&#10003;</span><span style="font-size:0.82rem;color:#FAF8F5;font-weight:600">Watertight</span><code style="font-size:0.7rem;color:#8B9AB5;font-family:ui-monospace,monospace;margin-left:auto">is_watertight</code></div>
+              <div style="display:flex;align-items:center;gap:0.9rem;background:#0B1425;border-radius:12px;padding:0.85rem 1.1rem"><span style="width:1.4rem;height:1.4rem;border-radius:50%;background:#7a8a5e;color:#0B1425;display:grid;place-items:center;font-size:0.8rem;font-weight:800;flex:none">&#10003;</span><span style="font-size:0.82rem;color:#FAF8F5;font-weight:600">Consistently wound</span><code style="font-size:0.7rem;color:#8B9AB5;font-family:ui-monospace,monospace;margin-left:auto">is_winding_consistent</code></div>
+              <div style="display:flex;align-items:center;gap:0.9rem;background:#0B1425;border-radius:12px;padding:0.85rem 1.1rem"><span style="width:1.4rem;height:1.4rem;border-radius:50%;background:#7a8a5e;color:#0B1425;display:grid;place-items:center;font-size:0.8rem;font-weight:800;flex:none">&#10003;</span><span style="font-size:0.82rem;color:#FAF8F5;font-weight:600">Positive volume</span><code style="font-size:0.7rem;color:#8B9AB5;font-family:ui-monospace,monospace;margin-left:auto">volume &gt; 0</code></div>
+              <div style="display:flex;align-items:center;gap:0.9rem;border:1px dashed rgba(184,146,46,0.5);border-radius:12px;padding:0.85rem 1.1rem"><span style="width:1.4rem;height:1.4rem;border-radius:50%;background:#B8922E;color:#0B1425;display:grid;place-items:center;font-size:0.85rem;font-weight:800;flex:none">&rarr;</span><span style="font-size:0.82rem;color:#B8922E;font-weight:700">Cleared for the machine</span></div>
+            </div>
+            <div style="flex:1;aspect-ratio:670/598;position:relative">
+              <img src="/images/dolby/kabbalah-testcut.webp" alt="Physical Kabbalah wave panel test-cut, shot in raking light, all four carved letters visible" style="position:absolute;inset:0;width:100%;height:100%;border-radius:14px;object-fit:cover;object-position:50% 50%" />
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:0.9rem;align-items:baseline;padding:0.9rem 0 1.4rem;border-top:1px solid rgba(250,248,245,0.14);margin-bottom:0.4rem">
+          <span style="font-size:0.56rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#B8922E;flex:none;padding-top:0.25rem;width:6.5rem">Still unresolved</span>
+          <span style="font-size:0.83rem;line-height:1.55;color:#8B9AB5;max-width:78ch">One mode stays flagged as not-yet-cuttable at the tested scale rather than force-cut, and which variants are gallery-worthy across a full range of inputs is still a taste pass in progress.</span>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:0.45rem;align-items:center">
+          <span style="font-size:0.58rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B9AB5;margin-right:0.5rem">Skills demonstrated</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#FAF8F5;background:rgba(250,248,245,0.12);padding:0.3rem 0.8rem;border-radius:999px">Generative / computational design</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#FAF8F5;background:rgba(250,248,245,0.12);padding:0.3rem 0.8rem;border-radius:999px">3D geometry &amp; CAD export pipelines</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#FAF8F5;background:rgba(250,248,245,0.12);padding:0.3rem 0.8rem;border-radius:999px">Root-cause debugging</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#FAF8F5;background:rgba(250,248,245,0.12);padding:0.3rem 0.8rem;border-radius:999px">Building verification systems</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#FAF8F5;background:rgba(250,248,245,0.12);padding:0.3rem 0.8rem;border-radius:999px">CNC toolpath programming</span>
+        </div>
+
+      </div>
+    </section>
+
+    <section style="padding:5.5rem 2rem 5rem;background:#FAF8F5">
+      <div style="max-width:1180px;margin:0 auto">
+
+        <div style="display:flex;align-items:flex-start;gap:2rem;margin-bottom:2.6rem;flex-wrap:wrap">
+          <div style="font-size:5.5rem;font-weight:800;letter-spacing:-0.05em;line-height:0.8;color:rgba(27,42,74,0.11);flex:none">03</div>
+          <div style="flex:1;min-width:min(100%,26rem)">
+            <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B6914;margin-bottom:0.7rem">Systems &middot; Solo build, concept to live launch</div>
+            <h2 style="font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:800;letter-spacing:-0.038em;line-height:1.05;margin:0 0 0.6rem;color:#1B2A4A;max-width:26ch">theoakhome.com: brand site, one person</h2>
+            <p style="font-size:1rem;color:#4A5568;line-height:1.6;margin:0;max-width:56ch">Art direction, copy, frontend and deployment for a home-organizing business that had no brand voice yet &mdash; and no design or dev team to hand any of it to.</p>
+          </div>
+          <div style="flex:none;display:flex;flex-direction:column;gap:0.6rem;align-items:flex-start">
+            <a href="https://theoakhome.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;background:#1B2A4A;color:#FAF8F5;font-size:0.76rem;font-weight:600;padding:0.6rem 1.1rem;border-radius:999px">Live site &rarr;</a>
+            <span style="font-size:0.72rem;color:#718096">Art Director, Copywriter, Frontend</span>
+          </div>
+        </div>
+
+        <div style="padding:1.6rem 1.8rem;background:rgba(139,105,20,0.07);border-left:4px solid #8B6914;border-radius:0 16px 16px 0;margin-bottom:1rem">
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B6914;margin-bottom:0.7rem">What it proves</div>
+          <p style="margin:0;font-size:1.15rem;line-height:1.5;color:#1B2A4A;font-weight:600;max-width:70ch;text-wrap:pretty">A business went from no identity at all to a live site with a voice that holds &mdash; art direction, copy, frontend and deploy, all carried by one person. It&rsquo;s still live and still the front door.</p>
+        </div>
+        <p style="margin:0 0 3rem;font-size:0.9rem;line-height:1.6;color:#718096;max-width:76ch;padding-left:1.8rem;text-wrap:pretty"><strong style="color:#4A5568;font-weight:600">The gap:</strong> the business runs on trust and a specific tone &mdash; warm, direct, no corporate-speak, no hollow positivity &mdash; and none of it existed outside of conversation. No guidelines, no copy, no prior site, no team to hand any of it to.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1.2rem;margin-bottom:1.2rem">
+          <div style="border:1px solid #E1DACF;border-radius:20px;background:#fff;padding:1.8rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#718096;margin-bottom:1.3rem">Blank page &rarr; a voice that holds</div>
+            <div style="display:flex;flex-direction:column;gap:0.9rem">
+              <div style="display:grid;grid-template-columns:auto 1fr;gap:0.9rem;align-items:start;padding:0.9rem 1rem;background:#F7F3EC;border-radius:12px">
+                <span style="font-size:0.55rem;font-weight:800;letter-spacing:0.08em;color:#fff;background:#B4483A;border-radius:999px;padding:0.22rem 0.55rem;margin-top:0.1rem">NOT THIS</span>
+                <span style="font-size:0.83rem;color:#718096;line-height:1.45;font-style:italic">&ldquo;Transform your space and unlock your best life with our premium organizing solutions.&rdquo;</span>
+              </div>
+              <div style="display:grid;grid-template-columns:auto 1fr;gap:0.9rem;align-items:start;padding:0.9rem 1rem;background:#EEF2E7;border-radius:12px">
+                <span style="font-size:0.55rem;font-weight:800;letter-spacing:0.08em;color:#fff;background:#7a8a5e;border-radius:999px;padding:0.22rem 0.55rem;margin-top:0.1rem">THIS</span>
+                <span style="font-size:0.83rem;color:#1B2A4A;line-height:1.45;font-weight:500">Warm, direct, no corporate-speak, no hollow positivity. Say the true thing, then stop.</span>
+              </div>
+            </div>
+            <div style="margin-top:1.5rem;padding-top:1.4rem;border-top:1px solid #E8E4DF">
+              <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#718096;margin-bottom:0.9rem">Everything one person owned</div>
+              <div style="display:flex;flex-wrap:wrap;gap:0.45rem">
+                <span style="font-size:0.74rem;font-weight:600;color:#FAF8F5;background:#1B2A4A;padding:0.32rem 0.85rem;border-radius:999px">Art direction</span>
+                <span style="font-size:0.74rem;font-weight:600;color:#FAF8F5;background:#1B2A4A;padding:0.32rem 0.85rem;border-radius:999px">Voice &amp; copy</span>
+                <span style="font-size:0.74rem;font-weight:600;color:#FAF8F5;background:#1B2A4A;padding:0.32rem 0.85rem;border-radius:999px">Frontend build</span>
+                <span style="font-size:0.74rem;font-weight:600;color:#FAF8F5;background:#1B2A4A;padding:0.32rem 0.85rem;border-radius:999px">Deployment</span>
+              </div>
+              <p style="margin:1.1rem 0 0;font-size:0.85rem;color:#4A5568;line-height:1.6;text-wrap:pretty"><strong style="color:#1B2A4A">The judgment call:</strong> the failure mode for a solo build is scope creep &mdash; chasing every feature a &ldquo;real&rdquo; web team would add because it&rsquo;s expected. The site had one job: establish the voice and get people to book a consultation. Every decision got measured against that job, not against what a bigger site would have shipped.</p>
+            </div>
+          </div>
+
+          <div style="border:1px solid #E1DACF;border-radius:20px;background:#fff;padding:1.8rem;display:flex;flex-direction:column;gap:1.2rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#718096">One measurable job</div>
+            <div style="display:flex;flex-direction:column;gap:0.55rem">
+              <div style="display:flex;align-items:center;gap:0.9rem;background:#F7F3EC;border-radius:12px;padding:0.8rem 1.1rem"><span style="font-size:0.6rem;font-weight:800;color:#718096;flex:none;width:1.2rem">01</span><span style="font-size:0.82rem;color:#4A5568;font-weight:600">Land &mdash; does this sound like a person?</span></div>
+            <div style="display:flex;align-items:center;gap:0.9rem;background:#F7F3EC;border-radius:12px;padding:0.8rem 1.1rem"><span style="font-size:0.6rem;font-weight:800;color:#718096;flex:none;width:1.2rem">02</span><span style="font-size:0.82rem;color:#4A5568;font-weight:600">Understand the service in one scroll</span></div>
+              <div style="display:flex;align-items:center;gap:0.9rem;background:#1B2A4A;border-radius:12px;padding:0.8rem 1.1rem"><span style="font-size:0.6rem;font-weight:800;color:#B8922E;flex:none;width:1.2rem">03</span><span style="font-size:0.82rem;color:#FAF8F5;font-weight:700">Book a consultation</span></div>
+            </div>
+            <div style="flex:1;min-height:13rem;position:relative">
+              <img src="/images/dolby/theoakhome-screenshot.webp" alt="theoakhome.com homepage screenshot" style="position:absolute;inset:0;width:100%;height:100%;border-radius:14px;object-fit:cover;object-position:50% 50%" />
+            </div>
+            <div style="font-size:0.78rem;color:#4A5568;line-height:1.5">Still live, still the front door for the business.</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:0.9rem;align-items:baseline;padding:0.9rem 0 1.4rem;border-top:1px solid #E1DACF;margin-bottom:0.4rem">
+          <span style="font-size:0.56rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#8B6914;flex:none;padding-top:0.25rem;width:6.5rem">Still unresolved</span>
+          <span style="font-size:0.83rem;line-height:1.55;color:#4A5568;max-width:78ch">There&rsquo;s no instrumented conversion data yet, and the voice has never been tested against a second writer &mdash; consistent because one person wrote it, not because it&rsquo;s documented well enough to hand off.</span>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:0.45rem;align-items:center">
+          <span style="font-size:0.58rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#718096;margin-right:0.5rem">Skills demonstrated</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E1DACF;padding:0.3rem 0.8rem;border-radius:999px">Brand voice &amp; copywriting</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E1DACF;padding:0.3rem 0.8rem;border-radius:999px">Art direction</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E1DACF;padding:0.3rem 0.8rem;border-radius:999px">Frontend &amp; deployment</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E1DACF;padding:0.3rem 0.8rem;border-radius:999px">Scope discipline</span>
+        </div>
+
+      </div>
+    </section>
+
+    <section style="padding:5.5rem 2rem 5rem;background:#F1EDE6">
+      <div style="max-width:1180px;margin:0 auto">
+
+        <div style="display:flex;align-items:flex-start;gap:2rem;margin-bottom:2.6rem;flex-wrap:wrap">
+          <div style="font-size:5.5rem;font-weight:800;letter-spacing:-0.05em;line-height:0.8;color:rgba(27,42,74,0.11);flex:none">04</div>
+          <div style="flex:1;min-width:min(100%,26rem)">
+            <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B6914;margin-bottom:0.7rem">Production Management &middot; In daily use since April 2026</div>
+            <h2 style="font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:800;letter-spacing:-0.038em;line-height:1.05;margin:0 0 0.6rem;color:#1B2A4A;max-width:26ch">Shop Floor Board: replacing &ldquo;go ask the foreman&rdquo;</h2>
+            <p style="font-size:1rem;color:#4A5568;line-height:1.6;margin:0;max-width:56ch">A purpose-built job-status board on the shop&rsquo;s real stages &mdash; no accounts, no rigid PM schema. The smallest tool that actually closes the gap.</p>
+          </div>
+          <div style="flex:none;display:flex;flex-direction:column;gap:0.6rem;align-items:flex-start">
+            <a href="https://thestatusshop.netlify.app/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;background:#1B2A4A;color:#FAF8F5;font-size:0.76rem;font-weight:600;padding:0.6rem 1.1rem;border-radius:999px">Live board &rarr;</a>
+            <span style="font-size:0.72rem;color:#718096">Product Designer, Developer</span>
+          </div>
+        </div>
+
+        <div style="padding:1.6rem 1.8rem;background:rgba(139,105,20,0.07);border-left:4px solid #8B6914;border-radius:0 16px 16px 0;margin-bottom:1rem">
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B6914;margin-bottom:0.7rem">What it proves</div>
+          <p style="margin:0;font-size:1.15rem;line-height:1.5;color:#1B2A4A;font-weight:600;max-width:70ch;text-wrap:pretty">Anyone on the team can now see the true status of every active job in seconds, on any device, without asking a person &mdash; built on the shop&rsquo;s real stages, and in daily use on the floor since April.</p>
+        </div>
+        <p style="margin:0 0 3rem;font-size:0.9rem;line-height:1.6;color:#718096;max-width:76ch;padding-left:1.8rem;text-wrap:pretty"><strong style="color:#4A5568;font-weight:600">The gap:</strong> one person held the full picture, and everyone else&rsquo;s answer to &ldquo;what&rsquo;s next?&rdquo; was to go ask him. Monday was too rigid for how the shop moves, Notion too abstract to answer &ldquo;where is this job right now&rdquo; at a glance, Miro missing status fields entirely.</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1.2rem;align-items:flex-start">
+          <div style="border:1px solid #E8E4DF;border-radius:20px;background:#fff;padding:1.8rem;flex:1;min-width:min(100%,15rem)">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#718096;margin-bottom:1.4rem">Before &mdash; one point of truth</div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem">
+              <div style="display:flex;gap:0.4rem">
+                <span style="width:1.9rem;height:1.9rem;border-radius:50%;background:#E8E4DF"></span>
+                <span style="width:1.9rem;height:1.9rem;border-radius:50%;background:#E8E4DF"></span>
+                <span style="width:1.9rem;height:1.9rem;border-radius:50%;background:#E8E4DF"></span>
+                <span style="width:1.9rem;height:1.9rem;border-radius:50%;background:#E8E4DF"></span>
+                <span style="width:1.9rem;height:1.9rem;border-radius:50%;background:#E8E4DF"></span>
+              </div>
+              <div style="font-size:1.3rem;color:#8B6914;line-height:1">&darr;</div>
+              <div style="width:3.4rem;height:3.4rem;border-radius:50%;background:#8B6914;color:#FAF8F5;display:grid;place-items:center;font-size:0.58rem;font-weight:800;letter-spacing:0.06em;text-align:center;line-height:1.2">FORE<br />MAN</div>
+              <div style="font-size:0.74rem;color:#8B6914;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-top:0.4rem">Single point of failure</div>
+            </div>
+            <div style="margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid #E8E4DF">
+              <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#718096;margin-bottom:1.2rem">After &mdash; the board is the truth</div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem">
+                <div style="display:flex;gap:0.4rem">
+                  <span style="width:1.9rem;height:1.9rem;border-radius:50%;background:#E8E4DF"></span>
+                  <span style="width:1.9rem;height:1.9rem;border-radius:50%;background:#E8E4DF"></span>
+                  <span style="width:1.9rem;height:1.9rem;border-radius:50%;background:#E8E4DF"></span>
+                  <span style="width:1.9rem;height:1.9rem;border-radius:50%;background:#E8E4DF"></span>
+                  <span style="width:1.9rem;height:1.9rem;border-radius:50%;background:#E8E4DF"></span>
+                </div>
+                <div style="font-size:1.3rem;color:#1B2A4A;line-height:1">&darr;</div>
+                <div style="width:100%;border-radius:12px;background:#1B2A4A;color:#FAF8F5;padding:0.7rem;text-align:center;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase">The board &middot; any device</div>
+              </div>
+            </div>
+            <div style="margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid #E8E4DF">
+              <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#718096;margin-bottom:0.9rem">In the shop</div>
+              <div style="height:11rem;position:relative">
+                <img src="/images/dolby/shop-floor-board-in-shop.webp" alt="Shop Floor Board displayed on a screen in the shop" style="position:absolute;inset:0;width:100%;height:100%;border-radius:14px;object-fit:cover;object-position:53% 44%;transform:scale(1.173)" />
+              </div>
+            </div>
+          </div>
+
+          <div style="border:1px solid #E8E4DF;border-radius:20px;background:#fff;padding:1.8rem;flex:3;min-width:min(100%,26rem)">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.3rem">
+              <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#718096">The shop&rsquo;s real stages &mdash; not a generic template</div>
+              <div style="font-size:0.7rem;color:#718096">Kanban + filtered list &middot; no accounts</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0.5rem">
+              <div style="display:flex;flex-direction:column;gap:0.4rem;min-width:0">
+                <div style="font-size:0.56rem;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;color:#718096;padding-bottom:0.4rem;border-bottom:2px solid #E8E4DF">Incoming</div>
+                <div style="background:#F4F1EC;border-radius:9px;padding:0.5rem;font-size:0.64rem;color:#1B2A4A;font-weight:600;line-height:1.3">Blanton display</div>
+                <div style="background:#F4F1EC;border-radius:9px;padding:0.5rem;font-size:0.64rem;color:#1B2A4A;font-weight:600;line-height:1.3">Guitar shed seating</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:0.4rem;min-width:0">
+                <div style="font-size:0.56rem;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;color:#718096;padding-bottom:0.4rem;border-bottom:2px solid #E8E4DF">Planning</div>
+                <div style="background:#F4F1EC;border-radius:9px;padding:0.5rem;font-size:0.64rem;color:#1B2A4A;font-weight:600;line-height:1.3">ALD dining table</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:0.4rem;min-width:0">
+                <div style="font-size:0.56rem;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;color:#718096;padding-bottom:0.4rem;border-bottom:2px solid #E8E4DF">Rough mill</div>
+                <div style="background:#F4F1EC;border-radius:9px;padding:0.5rem;font-size:0.64rem;color:#1B2A4A;font-weight:600;line-height:1.3">Joey + Becca nightstands</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:0.4rem;min-width:0">
+                <div style="font-size:0.56rem;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;color:#8B6914;padding-bottom:0.4rem;border-bottom:2px solid #B8922E">Build</div>
+                <div style="background:#FDF3E3;border:1px solid #E8D9B8;border-radius:9px;padding:0.5rem;font-size:0.64rem;color:#1B2A4A;font-weight:600;line-height:1.3">Dining banquette<div style="font-weight:400;color:#8B6914;font-size:0.58rem;margin-top:0.25rem;font-style:italic">waiting on fabric &mdash; free-form note</div></div>
+                <div style="background:#F4F1EC;border-radius:9px;padding:0.5rem;font-size:0.64rem;color:#1B2A4A;font-weight:600;line-height:1.3">Living room console</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:0.4rem;min-width:0">
+                <div style="font-size:0.56rem;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;color:#718096;padding-bottom:0.4rem;border-bottom:2px solid #E8E4DF">Finish</div>
+                <div style="background:#F4F1EC;border-radius:9px;padding:0.5rem;font-size:0.64rem;color:#1B2A4A;font-weight:600;line-height:1.3">Ashley Mathis table</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:0.4rem;min-width:0">
+                <div style="font-size:0.56rem;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;color:#718096;padding-bottom:0.4rem;border-bottom:2px solid #E8E4DF">Delivery</div>
+                <div style="background:#F4F1EC;border-radius:9px;padding:0.5rem;font-size:0.64rem;color:#1B2A4A;font-weight:600;line-height:1.3">Sample kitchen install</div>
+              </div>
+            </div>
+            <div style="margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid #E8E4DF">
+              <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B6914;margin-bottom:0.7rem">The judgment call</div>
+              <p style="margin:0;font-size:0.85rem;color:#4A5568;line-height:1.6;max-width:78ch;text-wrap:pretty">It would have been easy to build toward &ldquo;full project management system.&rdquo; I built the smallest thing that closed the specific gap &mdash; one person as single point of truth &mdash; and left Slack notifications and Notion sync as a labeled roadmap rather than half-building them now.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:0.9rem;align-items:baseline;padding:0.9rem 0 1.4rem;border-top:1px solid #E1DACF;margin-bottom:0.4rem">
+          <span style="font-size:0.56rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#8B6914;flex:none;padding-top:0.25rem;width:6.5rem">Still unresolved</span>
+          <span style="font-size:0.83rem;line-height:1.55;color:#4A5568;max-width:78ch">The board still has to be looked at &mdash; Slack push is scoped, not built &mdash; and no accounts means no audit trail of who moved what: right for this shop today, wrong at twice the headcount.</span>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:0.45rem;align-items:center">
+          <span style="font-size:0.58rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#718096;margin-right:0.5rem">Skills demonstrated</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E8E4DF;padding:0.3rem 0.8rem;border-radius:999px">Product design for a real workflow</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E8E4DF;padding:0.3rem 0.8rem;border-radius:999px">AI-assisted development</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E8E4DF;padding:0.3rem 0.8rem;border-radius:999px">Scoping to the smallest closing version</span>
+          <span style="font-size:0.74rem;font-weight:500;color:#1B2A4A;background:#E8E4DF;padding:0.3rem 0.8rem;border-radius:999px">Reading a team&rsquo;s real process</span>
+        </div>
+
+      </div>
+    </section>
+
+    <section style="padding:6rem 2rem;background:#111D35;color:#FAF8F5">
+      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:4rem;align-items:start">
+        <div>
+          <p style="font-size:0.66rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#B8922E;margin:0 0 1.4rem">Why this page exists</p>
+          <h2 style="font-size:clamp(2rem,4vw,3.1rem);font-weight:800;letter-spacing:-0.04em;line-height:1.03;margin:0 0 1.4rem">Four problems.<br />Four mediums.<br />The same job.</h2>
+          <p style="font-size:1rem;line-height:1.65;color:#C9CFDB;margin:0 0 2rem;max-width:46ch;text-wrap:pretty">Read whether something works before it&rsquo;s finished, build the version that proves it, then say plainly what it proved. It&rsquo;s the same job whether the output is a relief panel, a margin model, a commercial install, or a research demo standing between engineers and a room of stakeholders who need to feel it before they&rsquo;ll believe it.</p>
+          <div style="display:flex;gap:0.7rem;flex-wrap:wrap">
+            <a href="mailto:ben@benmuratet.com" style="display:inline-flex;align-items:center;gap:0.5rem;background:#8B6914;color:#FAF8F5;font-size:0.85rem;font-weight:600;padding:0.75rem 1.4rem;border-radius:999px">ben@benmuratet.com</a>
+            <a href="https://www.linkedin.com/in/benjamin-muratet-22b79020" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;border:1px solid rgba(250,248,245,0.3);color:#E8E4DF;font-size:0.85rem;font-weight:600;padding:0.75rem 1.4rem;border-radius:999px">LinkedIn &rarr;</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1.6rem">
+          <div style="border-top:1px solid rgba(232,228,223,0.18);padding-top:1.2rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B9AB5;margin-bottom:0.5rem">Ben Muratet</div>
+            <div style="font-size:0.9rem;color:#E8E4DF;line-height:1.6">Atlanta, GA &middot; available hybrid<br />918.519.6474</div>
+          </div>
+          <div style="border-top:1px solid rgba(232,228,223,0.18);padding-top:1.2rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B9AB5;margin-bottom:0.5rem">Education</div>
+            <div style="font-size:0.9rem;color:#E8E4DF;line-height:1.6">MFA, Film &amp; Television &mdash; SCAD<br />BFA, Professional Photo Illustration &amp; Advertising &mdash; RIT</div>
+          </div>
+          <div style="border-top:1px solid rgba(232,228,223,0.18);padding-top:1.2rem">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8B9AB5;margin-bottom:0.5rem">Also relevant</div>
+            <div style="font-size:0.9rem;color:#E8E4DF;line-height:1.6">Managing the team that engineers client designs into buildable products &mdash; CNC prototyping through installation. Ten-plus years of freelance technical production before that: LED volume stages, Unreal real-time camera tracking, imaging and lighting.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+  </div>
 </BaseLayout>
 
-<style>
-  .intro {
-    max-width: 700px;
-    margin: 3rem auto 1rem;
-    padding: 0 2rem;
-    text-align: center;
-  }
-
-  .intro-eyebrow {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #8B6914;
-    margin: 0 0 0.75rem;
-  }
-
-  .intro-title {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #1B2A4A;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-    margin: 0 0 1.25rem;
-  }
-
-  @media (min-width: 640px) {
-    .intro-title { font-size: 2.5rem; }
-  }
-
-  .intro-body {
-    font-size: 0.95rem;
-    color: #4A5568;
-    line-height: 1.7;
-    margin: 0 0 1rem;
-  }
-
-  /* ---- Main article wrapper ---- */
-  .detail-page {
-    background: #FAF8F5;
-    max-width: 900px;
-    margin: 2.5rem auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    overflow: hidden;
-    position: relative;
-  }
-
-  @media (max-width: 960px) {
-    .detail-page {
-      margin: 1.5rem 0;
-      border-radius: 0;
-      box-shadow: none;
-      border-top: 1px solid #E8E4DF;
-      border-bottom: 1px solid #E8E4DF;
-    }
-  }
-
-  .ghost-num {
-    position: absolute;
-    top: 1.25rem;
-    right: 1.75rem;
-    font-size: 6rem;
-    font-weight: 800;
-    color: rgba(27,42,74,0.055);
-    line-height: 1;
-    letter-spacing: -0.04em;
-    user-select: none;
-    pointer-events: none;
-  }
-
-  .detail-header {
-    padding: 2rem 2rem 0;
-    position: relative;
-  }
-
-  .detail-cat {
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #8B6914;
-    margin-bottom: 0.5rem;
-  }
-
-  .detail-title {
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: #1B2A4A;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    max-width: 540px;
-    margin: 0 0 0.35rem;
-  }
-
-  .detail-subtitle {
-    font-size: 0.9rem;
-    color: #718096;
-    font-weight: 400;
-    margin: 0;
-  }
-
-  @media (min-width: 640px) {
-    .detail-title { font-size: 2.1rem; }
-  }
-
-  .detail-pullquote {
-    margin: 1.25rem 2rem 0;
-    padding: 0.9rem 1.25rem;
-    border-left: 3px solid #8B6914;
-    background: rgba(139,105,20,0.05);
-    border-radius: 0 4px 4px 0;
-  }
-
-  .detail-pullquote p {
-    font-size: 0.88rem;
-    color: #4A5568;
-    font-style: italic;
-    line-height: 1.65;
-    margin: 0;
-  }
-
-  .detail-body {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding: 1.5rem 2rem;
-  }
-
-  @media (min-width: 640px) {
-    .detail-body {
-      grid-template-columns: 1.4fr 1fr;
-      gap: 1.5rem;
-      align-items: start;
-    }
-  }
-
-  .detail-hero {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: 6px;
-    display: block;
-    background: #E8E4DF;
-  }
-
-  .detail-hero-placeholder {
-    background: linear-gradient(135deg, #1B2A4A 0%, #2A3F6B 60%, #4A5568 100%);
-  }
-
-  .detail-brief-col {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-    padding-top: 1rem;
-  }
-
-  @media (min-width: 640px) {
-    .detail-brief-col {
-      padding-top: 0;
-      border-left: 1px solid #E8E4DF;
-      padding-left: 1.5rem;
-    }
-  }
-
-  .brief-label {
-    font-size: 0.58rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #8B6914;
-    margin-bottom: 0.3rem;
-  }
-
-  .brief-val {
-    font-size: 0.83rem;
-    color: #4A5568;
-    line-height: 1.65;
-  }
-
-  .detail-process {
-    margin: 0 2rem;
-    padding: 1.5rem 0;
-    border-top: 1px solid #E8E4DF;
-  }
-
-  .process-section-label {
-    font-size: 0.58rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #718096;
-    margin-bottom: 0.9rem;
-  }
-
-  .process-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  @media (min-width: 640px) {
-    .process-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
-    }
-  }
-
-  .process-img {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: 5px;
-    display: block;
-    background: #E8E4DF;
-  }
-
-  .process-cell-label {
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: #718096;
-    margin-top: 0.35rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .process-cell-desc {
-    font-size: 0.72rem;
-    color: #718096;
-    line-height: 1.45;
-    margin-top: 0.2rem;
-  }
-
-  .detail-narrative {
-    margin: 0 2rem;
-    padding: 1.5rem 0;
-    border-top: 1px solid #E8E4DF;
-  }
-
-  .value-list {
-    margin-top: 1.5rem;
-    padding-left: 1rem;
-    border-left: 2px solid #8B6914;
-  }
-
-  .value-label {
-    font-size: 0.58rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #8B6914;
-    margin-bottom: 0.5rem;
-  }
-
-  .value-list ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .value-list li {
-    font-size: 0.82rem;
-    color: #4A5568;
-    line-height: 1.55;
-    padding-left: 1rem;
-    position: relative;
-  }
-
-  .value-list li::before {
-    content: "›";
-    position: absolute;
-    left: 0;
-    color: #8B6914;
-  }
-
-  .detail-footer {
-    margin: 0 2rem;
-    padding: 1.25rem 0 2rem;
-    border-top: 1px solid #E8E4DF;
-  }
-
-  .skills-label {
-    font-size: 0.58rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #718096;
-    margin-bottom: 0.5rem;
-  }
-
-  .skills-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .skill-tag {
-    font-size: 0.72rem;
-    font-weight: 500;
-    color: #1B2A4A;
-    background: #E8E4DF;
-    padding: 0.22rem 0.7rem;
-    border-radius: 99px;
-  }
+<style is:global>
+  #kw-canvas { image-rendering: auto; }
 </style>
+
+<script is:inline src="/js/wave-engine.js"></script>
+<script is:inline>
+  (function () {
+    var state = { pattern: 'flow', style: 'smooth' };
+    var $ = function (id) { return document.getElementById(id); };
+
+    function profile() {
+      return window.WaveEngine.deriveProfile({
+        name: $('kw-name').value || 'Anonymous',
+        hebrewName: '', motherName: '',
+        month: Number($('kw-month').value) || 1,
+        day: Number($('kw-day').value) || 1,
+        year: Number($('kw-year').value) || 2000
+      });
+    }
+
+    function paint() {
+      if (!window.WaveEngine) return;
+      var cv = $('kw-canvas');
+      if (!cv) return;
+      var N = 360;
+      cv.width = N; cv.height = N;
+      var prof = profile();
+      var P = prof.params;
+      P.pattern = state.pattern;
+      P.style = state.style;
+      var field = window.WaveEngine.renderHeightField(P, N, N, 1);
+      var ctx = cv.getContext('2d');
+      var img = ctx.createImageData(N, N);
+      var lo = [30, 17, 6], hi = [226, 165, 108];
+      for (var j = 0; j < N; j++) {
+        for (var i = 0; i < N; i++) {
+          var k = j * N + i;
+          var h = field[k];
+          var hx = field[j * N + Math.min(N - 1, i + 1)] - h;
+          var hy = field[Math.min(N - 1, j + 1) * N + i] - h;
+          var t = h + 5.5 * (hx * 0.8 + hy * 0.6);
+          t = t < 0 ? 0 : t > 1 ? 1 : t;
+          var g = 4 * k;
+          img.data[g]     = lo[0] + (hi[0] - lo[0]) * t;
+          img.data[g + 1] = lo[1] + (hi[1] - lo[1]) * t;
+          img.data[g + 2] = lo[2] + (hi[2] - lo[2]) * t;
+          img.data[g + 3] = 255;
+        }
+      }
+      ctx.putImageData(img, 0, 0);
+
+      var d = prof.derivation || {};
+      var set = function (id, v) { var el = $(id); if (el) el.textContent = (v === undefined || v === null) ? '\u2014' : v; };
+      set('kw-gematria', d.gematriaTotal);
+      set('kw-lifepath', d.lifePath);
+      set('kw-dayletter', d.dayLetter);
+      set('kw-daylettername', d.dayLetterName);
+      set('kw-zodiac', d.zodiacSign);
+      set('kw-planet', d.rulingPlanet);
+      set('kw-sefirah', d.sefirah);
+      set('kw-pillar', d.pillar);
+      var ch = $('kw-character'); if (ch) ch.textContent = d.planetCharacter || '';
+    }
+
+    function syncButtons() {
+      Array.prototype.forEach.call(document.querySelectorAll('.kw-pat'), function (b) {
+        var on = b.dataset.pattern === state.pattern;
+        b.style.background = on ? '#1B2A4A' : 'transparent';
+        b.style.color = on ? '#FAF8F5' : '#C9CFDB';
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('.kw-sty'), function (b) {
+        var on = b.dataset.style === state.style;
+        b.style.background = on ? '#8B6914' : 'transparent';
+        b.style.color = on ? '#FAF8F5' : '#C9CFDB';
+      });
+    }
+
+    function init() {
+      ['kw-name', 'kw-month', 'kw-day', 'kw-year'].forEach(function (id) {
+        var el = $(id); if (el) el.addEventListener('input', paint);
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('.kw-pat'), function (b) {
+        b.addEventListener('click', function () { state.pattern = b.dataset.pattern; syncButtons(); paint(); });
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('.kw-sty'), function (b) {
+        b.addEventListener('click', function () { state.style = b.dataset.style; syncButtons(); paint(); });
+      });
+      syncButtons();
+      paint();
+    }
+
+    var tries = 0;
+    (function wait() {
+      if (window.WaveEngine) { init(); return; }
+      if (++tries > 100) return;
+      setTimeout(wait, 60);
+    })();
+  })();
+</script>
